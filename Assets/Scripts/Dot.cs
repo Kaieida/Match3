@@ -13,6 +13,7 @@ public class Dot : MonoBehaviour
     public int PreviousRow;
     public bool IsMatched = false;
 
+    private FindMatches _findMatches;
     private GameObject _otherDot;
     private Board _board;
     private Vector2 _firstTouchPosition;
@@ -23,18 +24,19 @@ public class Dot : MonoBehaviour
     void Start()
     {
         _board = FindObjectOfType<Board>();
-        TargetX = (int)transform.position.x;
+        _findMatches = FindObjectOfType<FindMatches>();
+        /*TargetX = (int)transform.position.x;
         TargetY = (int)transform.position.y;
         Row = TargetY;
         Column = TargetX;
         PreviousRow = Row;
-        PreviousColumn = Column;
+        PreviousColumn = Column;*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        FindMatches();
+       // FindMatches();
         if (IsMatched)
         {
             SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
@@ -46,27 +48,36 @@ public class Dot : MonoBehaviour
         {
             temPosition = new Vector2(TargetX, transform.position.y);
             transform.position = Vector2.Lerp(transform.position, temPosition, 0.1f);
+            if(_board.AllDots[Column,Row] != this.gameObject)
+            {
+                _board.AllDots[Column, Row] = this.gameObject;
+            }
+            _findMatches.FindingAllMatches();
         }
         else
         {
             temPosition = new Vector2(TargetX, transform.position.y);
             transform.position = temPosition;
-            _board.AllDots[Column, Row] = this.gameObject;
+            
         }
 
         if (Mathf.Abs(TargetY - transform.position.y) > 0.1f)
         {
             temPosition = new Vector2(transform.position.x, TargetY);
             transform.position = Vector2.Lerp(transform.position, temPosition, 0.1f);
+            if (_board.AllDots[Column, Row] != this.gameObject)
+            {
+                _board.AllDots[Column, Row] = this.gameObject;
+            }
+            _findMatches.FindingAllMatches();
         }
         else
         {
             temPosition = new Vector2(transform.position.x, TargetY);
             transform.position = temPosition;
-            _board.AllDots[Column, Row] = this.gameObject;
         }
     }
-    public IEnumerator CheckMoveCo()
+    public IEnumerator CheckMove()
     {
         yield return new WaitForSeconds(0.5f);
         if(_otherDot != null)
@@ -77,10 +88,13 @@ public class Dot : MonoBehaviour
                 _otherDot.GetComponent<Dot>().Column = Column;
                 Row = PreviousRow;
                 Column = PreviousColumn;
+                yield return new WaitForSeconds(0.5f);
+                _board.currentState = GameState.move;
             }
             else
             {
                 _board.DestroyMatches();
+
             }
             _otherDot = null;
         }
@@ -88,12 +102,20 @@ public class Dot : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (_board.currentState == GameState.move)
+        {
+            _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        
     }
     private void OnMouseUp()
     {
-        _finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        CalculateAngle();
+        if (_board.currentState == GameState.move)
+        {
+            _finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            CalculateAngle();
+        }
+        
     }
     private void CalculateAngle()
     {
@@ -101,6 +123,11 @@ public class Dot : MonoBehaviour
         {
             SwipeAngle = Mathf.Atan2(_finalTouchPosition.y - _firstTouchPosition.y, _finalTouchPosition.x - _firstTouchPosition.x) * 180 / Mathf.PI;
             MovePieces();
+            _board.currentState = GameState.wait;
+        }
+        else
+        {
+            _board.currentState = GameState.move;
         }
     }
 
@@ -109,30 +136,38 @@ public class Dot : MonoBehaviour
         if(SwipeAngle > -45 && SwipeAngle <= 45 && Column < _board.Width-1)
         {
             _otherDot = _board.AllDots[Column + 1, Row];
+            PreviousRow = Row;
+            PreviousColumn = Column;
             _otherDot.GetComponent<Dot>().Column -= 1;
             Column += 1;
         }
         else if (SwipeAngle > 45 && SwipeAngle <= 135 && Row < _board.Height-1)
         {
             _otherDot = _board.AllDots[Column, Row+1];
+            PreviousRow = Row;
+            PreviousColumn = Column;
             _otherDot.GetComponent<Dot>().Row -= 1;
             Row += 1;
         }
         else if ((SwipeAngle > 135 || SwipeAngle <= -135) && Column > 0)
         {
             _otherDot = _board.AllDots[Column - 1, Row];
+            PreviousRow = Row;
+            PreviousColumn = Column;
             _otherDot.GetComponent<Dot>().Column += 1;
             Column -= 1;
         }
         else if (SwipeAngle < -45 && SwipeAngle >= -135 && Row > 0)
         {
             _otherDot = _board.AllDots[Column, Row - 1];
+            PreviousRow = Row;
+            PreviousColumn = Column;
             _otherDot.GetComponent<Dot>().Row += 1;
             Row -= 1;
         }
-        StartCoroutine(CheckMoveCo());
+        StartCoroutine(CheckMove());
     }
-    void FindMatches()
+    private void FindMatches()
     {
         if (Column > 0 && Column < _board.Width - 1)
         {
