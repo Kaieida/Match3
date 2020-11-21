@@ -13,16 +13,28 @@ public class Dot : MonoBehaviour
     public int PreviousRow;
     public bool IsMatched = false;
 
+
     private FindMatches _findMatches;
     private GameObject _otherDot;
     private Board _board;
     private Vector2 _firstTouchPosition;
     private Vector2 _finalTouchPosition;
     private Vector2 temPosition;
+
+    [Header("Swipe Variables")]
     public float SwipeAngle = 0;
     public float SwipeResist = 1f;
+
+    [Header("PowerUp Variables")]
+    public bool IsColumnBomb;
+    public bool IsRowBomb;
+    public GameObject RowArrow;
+    public GameObject ColumnArrow;
     void Start()
     {
+        IsColumnBomb = false;
+        IsRowBomb = false;
+
         _board = FindObjectOfType<Board>();
         _findMatches = FindObjectOfType<FindMatches>();
         /*TargetX = (int)transform.position.x;
@@ -33,9 +45,21 @@ public class Dot : MonoBehaviour
         PreviousColumn = Column;*/
     }
 
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            IsColumnBomb = true;
+            GameObject arrow = Instantiate(ColumnArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+       
+
+
        // FindMatches();
         if (IsMatched)
         {
