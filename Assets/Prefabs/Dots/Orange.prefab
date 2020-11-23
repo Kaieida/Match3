@@ -118,11 +118,18 @@ MonoBehaviour:
   PreviousColumn: 0
   PreviousRow: 0
   IsMatched: 0
+  OtherDot: {fileID: 0}
   SwipeAngle: 0
   SwipeResist: 1
+  IsColorBomb: 0
   IsColumnBomb: 0
   IsRowBomb: 0
+  IsAdjacentBomb: 0
+  AdjacetMarker: {fileID: 3451455452613843235, guid: 061639ac43d5a7b4a969bc521256abfc,
+    type: 3}
   RowArrow: {fileID: 8264583090048797091, guid: f9134025d194ce64eae788531176136c,
     type: 3}
   ColumnArrow: {fileID: 1518305123393062673, guid: e33b13d3ed59fcd48ac1d65fa5df5386,
+    type: 3}
+  ColorBomb: {fileID: 8493520389574153683, guid: 41f2c37c2052d3740a282c0fac6be258,
     type: 3}

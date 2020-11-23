@@ -170,6 +170,7 @@ MonoBehaviour:
   OffSet: 30
   tilePrefab: {fileID: 3653030625557451141, guid: bc8df089803bc0f4099e2573080a036c,
     type: 3}
+  CurrentDot: {fileID: 0}
   Dots:
   - {fileID: 8243378547976188335, guid: 81ae19e09efd12143b8025300de488c2, type: 3}
   - {fileID: 5212372978287068747, guid: 42772d26f0ffa5947814737df0d37d32, type: 3}
