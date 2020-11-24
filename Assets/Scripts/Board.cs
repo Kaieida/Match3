@@ -95,13 +95,107 @@ public class Board : MonoBehaviour
         }
         return false;
     }
+
+    private bool ColumnOrRow()
+    {
+        int numberHorizontal = 0;
+        int numberVertical = 0;
+        Dot firstPiece = _findMatches.CurrentMatches[0].GetComponent<Dot>();
+        if (firstPiece != null)
+        {
+            foreach (GameObject currentPiece in _findMatches.CurrentMatches)
+            {
+                Dot dot = currentPiece.GetComponent<Dot>();
+                if(dot.Row == firstPiece.Row)
+                {
+                    numberHorizontal++;
+                }
+                if(dot.Column == firstPiece.Column)
+                {
+                    numberVertical++;
+                }
+            }
+        }
+        return (numberVertical == 5 || numberHorizontal == 5);
+    }
+
+    private void CheckToMakeBombs()
+    {
+        if (_findMatches.CurrentMatches.Count == 4 || _findMatches.CurrentMatches.Count == 7)
+        {
+            _findMatches.CheckBombs();
+        }
+        if (_findMatches.CurrentMatches.Count == 5 || _findMatches.CurrentMatches.Count == 8)
+        {
+            if (ColumnOrRow())
+            {
+                if (CurrentDot != null)
+                {
+                    if (CurrentDot.IsMatched)
+                    {
+                        if (!CurrentDot.IsColorBomb)
+                        {
+                            CurrentDot.IsMatched = false;
+                            CurrentDot.MakeColorBomb();
+                        }
+                        else
+                        {
+                            if (CurrentDot.OtherDot != null)
+                            {
+                                Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
+                                if (otherDot.IsMatched)
+                                {
+                                    if (!otherDot.IsColorBomb)
+                                    {
+                                        otherDot.IsMatched = false;
+                                        otherDot.MakeColorBomb();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (CurrentDot != null)
+                {
+                    if (CurrentDot.IsMatched)
+                    {
+                        if (!CurrentDot.IsAdjacentBomb)
+                        {
+                            CurrentDot.IsMatched = false;
+                            CurrentDot.MakeAdjacentBomb();
+                        }
+                        else
+                        {
+                            if (CurrentDot.OtherDot != null)
+                            {
+                                Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
+                                if (otherDot.IsMatched)
+                                {
+                                    if (!otherDot.IsAdjacentBomb)
+                                    {
+                                        otherDot.IsMatched = false;
+                                        otherDot.MakeAdjacentBomb();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void DestroyMatchesAt(int column, int row)
     {
         if (AllDots[column, row].GetComponent<Dot>().IsMatched)
         {
-            if(_findMatches.CurrentMatches.Count == 4 || _findMatches.CurrentMatches.Count == 7)
+            if(_findMatches.CurrentMatches.Count >= 4)
             {
-                _findMatches.CheckBombs();
+                CheckToMakeBombs();
+                //_findMatches.CheckBombs();
             }
             //_findMatches.CurrentMatches.Remove(AllDots[column, row]);
             GameObject particle = Instantiate(DestroyEffect, AllDots[column, row].transform.position, Quaternion.identity);
