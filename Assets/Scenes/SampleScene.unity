@@ -167,9 +167,28 @@ MonoBehaviour:
   currentState: 1
   Width: 7
   Height: 10
-  OffSet: 30
+  OffSet: 20
   tilePrefab: {fileID: 3653030625557451141, guid: bc8df089803bc0f4099e2573080a036c,
     type: 3}
+  BoardLayout:
+  - x: 0
+    y: 0
+    tileKind: 1
+  - x: 6
+    y: 9
+    tileKind: 1
+  - x: 6
+    y: 0
+    tileKind: 1
+  - x: 0
+    y: 9
+    tileKind: 1
+  - x: 4
+    y: 4
+    tileKind: 1
+  - x: 5
+    y: 4
+    tileKind: 1
   CurrentDot: {fileID: 0}
   Dots:
   - {fileID: 8243378547976188335, guid: 81ae19e09efd12143b8025300de488c2, type: 3}
@@ -193,6 +212,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -208,6 +228,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160ab4c77c0960247b23c3fe04be34e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOffset: -10
+  aspectRatio: 0.6
+  padding: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
