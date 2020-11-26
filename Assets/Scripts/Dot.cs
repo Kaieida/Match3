@@ -13,7 +13,7 @@ public class Dot : MonoBehaviour
     public int PreviousRow;
     public bool IsMatched = false;
 
-
+    private HintManager _hintManager;
     private FindMatches _findMatches;
     public GameObject OtherDot;
     private Board _board;
@@ -39,7 +39,7 @@ public class Dot : MonoBehaviour
         IsColumnBomb = false;
         IsRowBomb = false;
         IsColorBomb = false;
-
+        _hintManager = FindObjectOfType<HintManager>();
         _board = FindObjectOfType<Board>();
         _findMatches = FindObjectOfType<FindMatches>();
     }
@@ -127,11 +127,16 @@ public class Dot : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if(_hintManager != null)
+        {
+            _hintManager.DestroyHint();
+        }
         if (_board.currentState == GameState.move)
         {
             _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         
+
     }
     private void OnMouseUp()
     {

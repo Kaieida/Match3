@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 306606566}
   - component: {fileID: 306606567}
+  - component: {fileID: 306606568}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -166,41 +167,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 1
   Width: 7
-  Height: 10
+  Height: 7
   OffSet: 20
   tilePrefab: {fileID: 3653030625557451141, guid: bc8df089803bc0f4099e2573080a036c,
     type: 3}
-  BoardLayout:
-  - x: 0
-    y: 0
-    tileKind: 1
-  - x: 6
-    y: 9
-    tileKind: 1
-  - x: 6
-    y: 0
-    tileKind: 1
-  - x: 0
-    y: 9
-    tileKind: 1
-  - x: 4
-    y: 4
-    tileKind: 1
-  - x: 5
-    y: 4
-    tileKind: 1
-  CurrentDot: {fileID: 0}
+  breakableTilePrefab: {fileID: 145447611917957037, guid: 163a4b11133cfc14abc7128f955b6b66,
+    type: 3}
   Dots:
   - {fileID: 8243378547976188335, guid: 81ae19e09efd12143b8025300de488c2, type: 3}
-  - {fileID: 5212372978287068747, guid: 42772d26f0ffa5947814737df0d37d32, type: 3}
+  - {fileID: 1661336452260852195, guid: 5f3433f11f7521d428e9363570b25284, type: 3}
   - {fileID: 7876607010356312012, guid: 74e2c4aa5b6465f49a79dff94d343c72, type: 3}
   - {fileID: 8433236527135516529, guid: 56553c1bb37df3f478966062b178fc86, type: 3}
-  - {fileID: 7402830226403729971, guid: 87ba066b26b29ac4887c8e46d7ae4582, type: 3}
-  - {fileID: 1923391624736616302, guid: 14e164db91de66b4b993a158dbdcac8e, type: 3}
   - {fileID: 2263401657682983340, guid: d7fde3c9ce75cce45b346d0a30bd93bb, type: 3}
-  - {fileID: 1661336452260852195, guid: 5f3433f11f7521d428e9363570b25284, type: 3}
   DestroyEffect: {fileID: 4042922755112368644, guid: 01ffefa020785694ba182681e72ebdf5,
     type: 3}
+  BoardLayout: []
+  CurrentDot: {fileID: 0}
+--- !u!114 &306606568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306606565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb26879d0e1f754c81aaf6ef7026132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintDelay: 3
+  hintParticle: {fileID: 3884443937465851937, guid: fde9adffc54926a429ae413381f262e7,
+    type: 3}
+  currentHint: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
