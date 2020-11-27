@@ -25,7 +25,7 @@ public class FindMatches : MonoBehaviour
         List<GameObject> currentDots = new List<GameObject>();
         if (dot1.IsAdjacentBomb)
         {
-            CurrentMatches.Union(GetAdjacentPieces(dot1.Column,dot1.Row));
+            CurrentMatches.Union(GetAdjacentPieces(dot1.Column, dot1.Row));
         }
         if (dot2.IsAdjacentBomb)
         {
@@ -106,10 +106,10 @@ public class FindMatches : MonoBehaviour
                             Dot rightDotDot = rightDot.GetComponent<Dot>();
                             if (leftDot.tag == currentDot.tag && rightDot.tag == currentDot.tag)
                             {
-                                CurrentMatches.Union(IsRowBomb(leftDotDot,currentDotDot,rightDotDot));
+                                CurrentMatches.Union(IsRowBomb(leftDotDot, currentDotDot, rightDotDot));
                                 CurrentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
                                 CurrentMatches.Union(IsAdjacentBomb(leftDotDot, currentDotDot, rightDotDot));
-                                GetNearbyPieces(leftDot, currentDot, rightDot); 
+                                GetNearbyPieces(leftDot, currentDot, rightDot);
                                 currentDot.GetComponent<Dot>().IsMatched = true;
                             }
                         }
@@ -141,7 +141,7 @@ public class FindMatches : MonoBehaviour
         {
             for (int h = 0; h < _board.Height; h++)
             {
-                if(_board.AllDots[i,h] != null)
+                if (_board.AllDots[i, h] != null)
                 {
                     if (_board.AllDots[i, h].tag == color)
                     {
@@ -160,8 +160,11 @@ public class FindMatches : MonoBehaviour
             {
                 if (i >= 0 && i < _board.Width && h >= 0 && h < _board.Height)
                 {
-                    dots.Add(_board.AllDots[i, h]);
-                    _board.AllDots[i, h].GetComponent<Dot>().IsMatched = true;
+                    if (_board.AllDots[i, h] != null)
+                    {
+                        dots.Add(_board.AllDots[i, h]);
+                        _board.AllDots[i, h].GetComponent<Dot>().IsMatched = true;
+                    }
                 }
             }
         }
@@ -175,8 +178,13 @@ public class FindMatches : MonoBehaviour
         {
             if (_board.AllDots[column, i] != null)
             {
+                Dot dot = _board.AllDots[column, i].GetComponent<Dot>();
+                if (dot.IsRowBomb)
+                {
+                    dots.Union(GetRowPieces(i)).ToList();
+                }
                 dots.Add(_board.AllDots[column, i]);
-                _board.AllDots[column, i].GetComponent<Dot>().IsMatched = true;
+                dot.IsMatched = true;
             }
         }
         return dots;
@@ -189,20 +197,25 @@ public class FindMatches : MonoBehaviour
         {
             if (_board.AllDots[i, row] != null)
             {
+                Dot dot = _board.AllDots[i, row].GetComponent<Dot>();
+                if (dot.IsColumnBomb)
+                {
+                    dots.Union(GetColumnPieces(i)).ToList();
+                }
                 dots.Add(_board.AllDots[i, row]);
-                _board.AllDots[i, row].GetComponent<Dot>().IsMatched = true;
+                dot.IsMatched = true;
             }
         }
         return dots;
     }
     public void CheckBombs()
     {
-        if(_board.CurrentDot != null)
+        if (_board.CurrentDot != null)
         {
             if (_board.CurrentDot.IsMatched)
             {
                 _board.CurrentDot.IsMatched = false;
-                if((_board.CurrentDot.SwipeAngle > -45 && _board.CurrentDot.SwipeAngle <= 45)||(_board.CurrentDot.SwipeAngle < -135 || _board.CurrentDot.SwipeAngle >= 135))
+                if ((_board.CurrentDot.SwipeAngle > -45 && _board.CurrentDot.SwipeAngle <= 45) || (_board.CurrentDot.SwipeAngle < -135 || _board.CurrentDot.SwipeAngle >= 135))
                 {
                     _board.CurrentDot.MakeRowBomb();
                 }

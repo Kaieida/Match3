@@ -12,6 +12,7 @@ TagManager:
   - Salmon
   - Teal
   - Yellow
+  - Color
   layers:
   - Default
   - TransparentFX
