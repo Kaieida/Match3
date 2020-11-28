@@ -38,6 +38,7 @@ public class Board : MonoBehaviour
     public GameObject DestroyEffect;
     public TileType[] BoardLayout;
     public Dot CurrentDot;
+    public int[] scoreGoals;
     private bool[,] blankSpaces;
     private int streakValue = 1;
     private BackgroundTiles[,] _breakableTiles;
