@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Dot : MonoBehaviour
+public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Header("Board Varibales")]
     public int Column;
@@ -125,7 +126,7 @@ public class Dot : MonoBehaviour
         }
 
     }
-    private void OnMouseDown()
+    /*private void OnMouseDown()
     {
         if(_hintManager != null)
         {
@@ -135,10 +136,9 @@ public class Dot : MonoBehaviour
         {
             _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
-        
 
-    }
-    private void OnMouseUp()
+    }*/
+    /*private void OnMouseUp()
     {
         if (_board.currentState == GameState.move)
         {
@@ -146,7 +146,7 @@ public class Dot : MonoBehaviour
             CalculateAngle();
         }
         
-    }
+    }*/
     private void CalculateAngle()
     {
         if (Mathf.Abs(_finalTouchPosition.y - _firstTouchPosition.y) > SwipeResist || Mathf.Abs(_finalTouchPosition.x - _firstTouchPosition.x) > SwipeResist )
@@ -262,5 +262,26 @@ public class Dot : MonoBehaviour
         IsAdjacentBomb = true;
         GameObject marker = Instantiate(AdjacetMarker, transform.position, Quaternion.identity);
         marker.transform.parent = this.transform;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (_hintManager != null)
+        {
+            _hintManager.DestroyHint();
+        }
+        if (_board.currentState == GameState.move)
+        {
+            _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (_board.currentState == GameState.move)
+        {
+            _finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            CalculateAngle();
+        }
     }
 }

@@ -26,16 +26,26 @@ public class TileType
 public class Board : MonoBehaviour
 {
     public GameState currentState = GameState.move;
+
+    [Header("Scriptable object stuff")]
+    public World world;
+    public int level;
+
+    [Header("Board dimensions")]
     public int Width;
     public int Height;
     public int OffSet;
-    public int basePieceValue = 20;
-    public float refillDelay = 0.5f;
+
+    [Header("Prefabs")]
     public GameObject tilePrefab;
     public GameObject breakableTilePrefab;
-    public GameObject[,] AllDots;
     public GameObject[] Dots;
     public GameObject DestroyEffect;
+
+    [Header("Layout")]
+    public int basePieceValue = 20;
+    public float refillDelay = 0.5f;
+    public GameObject[,] AllDots;
     public TileType[] BoardLayout;
     public Dot CurrentDot;
     public int[] scoreGoals;
@@ -44,7 +54,21 @@ public class Board : MonoBehaviour
     private BackgroundTiles[,] _breakableTiles;
     private FindMatches _findMatches;
     private ScoreManager _scoreManager;
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if(world != null)
+        {
+            if(world.levels[level] != null)
+            {
+                Width = world.levels[level].width;
+                Height = world.levels[level].height;
+                Dots = world.levels[level].dots;
+                scoreGoals = world.levels[level].scoreGoals;
+                BoardLayout = world.levels[level].boardLayout;
+            }
+        }
+    }
     void Start()
     {
         _scoreManager = FindObjectOfType<ScoreManager>();
@@ -349,7 +373,7 @@ public class Board : MonoBehaviour
                     Vector2 tempPosition = new Vector2(i, h + OffSet);
                     int dotToUse = Random.Range(0, Dots.Length);
                     int maxIterations = 0;
-                    while (MatchesAt(i, h, Dots[dotToUse])&&maxIterations < 100)
+                    while (MatchesAt(i, h, Dots[dotToUse]) && maxIterations < 100)
                     {
                         maxIterations++;
                         dotToUse = Random.Range(0, Dots.Length);
@@ -392,12 +416,12 @@ public class Board : MonoBehaviour
         }
         _findMatches.CurrentMatches.Clear();
         CurrentDot = null;
-        
+
         if (IsDeadLocked())
         {
             ShuffleBoard();
         }
-            yield return new WaitForSeconds(refillDelay);
+        yield return new WaitForSeconds(refillDelay);
         currentState = GameState.move;
         streakValue = 1;
     }
