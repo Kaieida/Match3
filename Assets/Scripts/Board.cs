@@ -51,6 +51,7 @@ public class Board : MonoBehaviour
     public int[] scoreGoals;
     private bool[,] blankSpaces;
     private int streakValue = 1;
+    private GoalManager _goalManager;
     private BackgroundTiles[,] _breakableTiles;
     private FindMatches _findMatches;
     private ScoreManager _scoreManager;
@@ -71,6 +72,7 @@ public class Board : MonoBehaviour
     }
     void Start()
     {
+        _goalManager = FindObjectOfType<GoalManager>();
         _scoreManager = FindObjectOfType<ScoreManager>();
         _breakableTiles = new BackgroundTiles[Width, Height];
         _findMatches = FindObjectOfType<FindMatches>();
@@ -293,6 +295,12 @@ public class Board : MonoBehaviour
                     _breakableTiles[column, row] = null;
                 }
             }
+            if(_goalManager != null)
+            {
+                _goalManager.CompareGoal(AllDots[column,row].tag.ToString());
+                _goalManager.UpdateGoals();
+            }
+
             GameObject particle = Instantiate(DestroyEffect, AllDots[column, row].transform.position, Quaternion.identity);
             Destroy(particle, 0.5f);
             Destroy(AllDots[column, row]);

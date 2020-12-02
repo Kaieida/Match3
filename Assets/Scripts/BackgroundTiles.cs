@@ -6,14 +6,21 @@ public class BackgroundTiles : MonoBehaviour
 {
     public int hitPoints;
     private SpriteRenderer sprite;
+    private GoalManager _goalManager;
     private void Start()
     {
+        _goalManager = FindObjectOfType<GoalManager>();
         sprite = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
         if(hitPoints <= 0)
         {
+            if(_goalManager != null)
+            {
+                _goalManager.CompareGoal(this.gameObject.tag);
+                _goalManager.UpdateGoals();
+            }
             Destroy(this.gameObject);
         }  
     }
