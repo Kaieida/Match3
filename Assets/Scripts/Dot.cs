@@ -14,6 +14,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public int PreviousRow;
     public bool IsMatched = false;
 
+    private EndGameManager _endGameManager;
     private HintManager _hintManager;
     private FindMatches _findMatches;
     public GameObject OtherDot;
@@ -40,6 +41,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         IsColumnBomb = false;
         IsRowBomb = false;
         IsColorBomb = false;
+        _endGameManager = FindObjectOfType<EndGameManager>();
         _hintManager = FindObjectOfType<HintManager>();
         _board = FindObjectOfType<Board>();
         _findMatches = FindObjectOfType<FindMatches>();
@@ -119,6 +121,13 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
             else
             {
+                if(_endGameManager != null)
+                {
+                    if(_endGameManager.requirements.gameType == GameType.Moves)
+                    {
+                        _endGameManager.DecreaseCounterValue();
+                    }
+                }
                 _board.DestroyMatches();
 
             }

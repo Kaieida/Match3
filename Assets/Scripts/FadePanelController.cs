@@ -13,6 +13,18 @@ public class FadePanelController : MonoBehaviour
         {
             panelAnim.SetBool("Out", true);
             gameInfoAnim.SetBool("Out", true);
+            StartCoroutine(GameStart());
         }
+    }
+    public void GameOver()
+    {
+        panelAnim.SetBool("Out", false);
+        panelAnim.SetBool("Game Over", true);
+    }
+    IEnumerator GameStart()
+    {
+        yield return new WaitForSeconds(1f);
+        Board _board = FindObjectOfType<Board>();
+        _board.currentState = GameState.move;
     }
 }
