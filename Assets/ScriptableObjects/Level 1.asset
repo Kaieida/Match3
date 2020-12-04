@@ -21,3 +21,11 @@ MonoBehaviour:
   - {fileID: 7402830226403729971, guid: 87ba066b26b29ac4887c8e46d7ae4582, type: 3}
   - {fileID: 1661336452260852195, guid: 5f3433f11f7521d428e9363570b25284, type: 3}
   scoreGoals: 640000009001000058020000
+  endGameReq:
+    gameType: 0
+    counterValue: 60
+  levelGoals:
+  - numberNeeded: 10
+    numberCollected: 0
+    goalSprite: {fileID: 21300000, guid: 59249e75fd6602743b942c4362224cf2, type: 3}
+    matchValue: Red

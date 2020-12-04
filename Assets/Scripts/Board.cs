@@ -63,13 +63,16 @@ public class Board : MonoBehaviour
     {
         if(world != null)
         {
-            if(world.levels[level] != null)
+            if (level < world.levels.Length)
             {
-                Width = world.levels[level].width;
-                Height = world.levels[level].height;
-                Dots = world.levels[level].dots;
-                scoreGoals = world.levels[level].scoreGoals;
-                BoardLayout = world.levels[level].boardLayout;
+                if (world.levels[level] != null)
+                {
+                    Width = world.levels[level].width;
+                    Height = world.levels[level].height;
+                    Dots = world.levels[level].dots;
+                    scoreGoals = world.levels[level].scoreGoals;
+                    BoardLayout = world.levels[level].boardLayout;
+                }
             }
         }
     }

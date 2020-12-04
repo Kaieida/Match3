@@ -19,14 +19,34 @@ public class GoalManager : MonoBehaviour
     public GameObject goalIntParent;
     public GameObject goalGameParent;
     private EndGameManager _endGame;
+    private Board _board;
     // Start is called before the first frame update
     void Start()
     {
+        _board = FindObjectOfType<Board>();
+        GetGoals();
         SetupGoals();
         _endGame = FindObjectOfType<EndGameManager>();
+        
     }
+    private void GetGoals()
+    {
+        if(_board != null)
+        {
+            if (_board.level < _board.world.levels.Length)
+            {
 
-    void SetupGoals()
+                if (_board.world != null)
+                {
+                    if (_board.world.levels[_board.level] != null)
+                    {
+                        levelGoals = _board.world.levels[_board.level].levelGoals;
+                    }
+                }
+            }
+        }
+    }
+    private void SetupGoals()
     {
         for(int i = 0; i < levelGoals.Length; i++)
         {

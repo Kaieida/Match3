@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 1
   world: {fileID: 11400000, guid: e3b8d728ca34f35498b15ecd4cc0bb9f, type: 2}
-  level: 1
+  level: 0
   Width: 10
   Height: 10
   OffSet: 20
