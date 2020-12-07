@@ -6,24 +6,33 @@ using UnityEngine.SceneManagement;
 
 public class ConfirmPanel : MonoBehaviour
 {
+    public Image[] stars;
+    public int level;
     public string levelToLoad;
     // Start is called before the first frame update
     void Start()
     {
-        
+        ActivateStars();
     }
-
+    private void ActivateStars()
+    {
+        for (int i = 0; i < stars.Length; i++)
+        {
+            stars[i].enabled = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         
     }
-    private void Cancel()
+    public void Cancel()
     {
         this.gameObject.SetActive(false);
     }
-    private void Play()
+    public void Play()
     {
+        PlayerPrefs.SetInt("Current Level", level-1);
         SceneManager.LoadScene(levelToLoad);
     }
 }

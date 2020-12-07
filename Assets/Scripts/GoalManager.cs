@@ -35,12 +35,15 @@ public class GoalManager : MonoBehaviour
         {
             if (_board.level < _board.world.levels.Length)
             {
-
                 if (_board.world != null)
                 {
                     if (_board.world.levels[_board.level] != null)
                     {
                         levelGoals = _board.world.levels[_board.level].levelGoals;
+                        for(int i = 0;i<levelGoals.Length; i++)
+                        {
+                            levelGoals[i].numberCollected = 0;
+                        }
                     }
                 }
             }
