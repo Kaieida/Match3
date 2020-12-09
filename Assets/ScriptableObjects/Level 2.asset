@@ -27,6 +27,6 @@ MonoBehaviour:
     counterValue: 99
   levelGoals:
   - numberNeeded: 5
-    numberCollected: 3
+    numberCollected: 0
     goalSprite: {fileID: 21300000, guid: ba2ae14188bfa564daefb9fb55e1655f, type: 3}
     matchValue: Orange
