@@ -23,7 +23,7 @@ public class EndGameManager : MonoBehaviour
     public GameObject timesLabel;
     public GameObject youWinPanel;
     public GameObject youLosePanel;
-    public TextMeshProUGUI counter;
+    public Text counter;
     public int currentCounterValue;
     private float _timerSeconds;
     private Board _board;
@@ -68,7 +68,7 @@ public class EndGameManager : MonoBehaviour
     }
     public void DecreaseCounterValue()
     {
-        if (_board.currentState != GameState.pause)
+        if (_board.currentState != GameState.pause || _board.currentState != GameState.win)
         {
             currentCounterValue--;
             counter.text = "" + currentCounterValue;
@@ -83,7 +83,7 @@ public class EndGameManager : MonoBehaviour
     {
         youWinPanel.SetActive(true);
         _board.currentState = GameState.win;
-        currentCounterValue = 0;
+        //currentCounterValue = 0;
         counter.text = "" + currentCounterValue;
         FadePanelController fade = FindObjectOfType<FadePanelController>();
         fade.GameOver();
@@ -101,7 +101,7 @@ public class EndGameManager : MonoBehaviour
 
     private void Update()
     {
-        if(requirements.gameType == GameType.Time)
+        if(requirements.gameType == GameType.Time && _board.currentState != GameState.win)
         {
             _timerSeconds -= Time.deltaTime;
             if(_timerSeconds <= 0)

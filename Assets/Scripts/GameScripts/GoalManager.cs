@@ -17,7 +17,7 @@ public class GoalManager : MonoBehaviour
     public List<GoalPanel> currentGoals = new List<GoalPanel>();
     public GameObject goalPrefab;
     public GameObject goalIntParent;
-    public GameObject goalGameParent;
+    //public GameObject goalGameParent;//uncomment if broken
     private EndGameManager _endGame;
     private Board _board;
     // Start is called before the first frame update
@@ -61,9 +61,9 @@ public class GoalManager : MonoBehaviour
             panel.thisString = "0/"+levelGoals[i].numberNeeded;
 
 
-            GameObject gameGoal = Instantiate(goalPrefab, goalGameParent.transform.position, Quaternion.identity);
-            gameGoal.transform.SetParent(goalGameParent.transform);
-            panel = gameGoal.GetComponent<GoalPanel>();
+            //GameObject gameGoal = Instantiate(goalPrefab, goalGameParent.transform.position, Quaternion.identity);//uncomment if broken
+            //gameGoal.transform.SetParent(goalGameParent.transform);//uncomment if broken
+            //panel = gameGoal.GetComponent<GoalPanel>();//uncomment if broken
             currentGoals.Add(panel);
             panel.thisSprite = levelGoals[i].goalSprite;
             panel.thisString = "0/" + levelGoals[i].numberNeeded;

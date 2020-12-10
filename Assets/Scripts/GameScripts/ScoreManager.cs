@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
     private Board _board;
-    public TextMeshProUGUI scoreText;
+    public Text scoreText;
     public int score;
     public Image scoreBar;
     private GameData _gameData;
