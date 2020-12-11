@@ -17,6 +17,10 @@ public class ButtonManager : MonoBehaviour
     {
         
     }
+    public void LevelSelectMenu(GameObject levelPanel)
+    {
+        levelPanel.SetActive(true);
+    }
     public void ButtonChange(Sprite sprite)
     {
         gameObject.GetComponent<Image>().sprite = sprite;

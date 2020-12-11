@@ -125,7 +125,7 @@ MonoBehaviour:
   IsColumnBomb: 0
   IsRowBomb: 0
   IsAdjacentBomb: 0
-  AdjacetMarker: {fileID: 3451455452613843235, guid: 061639ac43d5a7b4a969bc521256abfc,
+  AdjacetMarker: {fileID: 3451455452613843235, guid: 59ee2f0e863f59245be82829df94ed56,
     type: 3}
   RowArrow: {fileID: 8264583090048797091, guid: 78fe13103bd7c5b4ea0f6185401d4c8e,
     type: 3}

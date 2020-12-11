@@ -43,7 +43,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         IsColorBomb = false;
         _endGameManager = FindObjectOfType<EndGameManager>();
         _hintManager = FindObjectOfType<HintManager>();
-        _board = FindObjectOfType<Board>();
+        _board = GameObject.FindWithTag("Board").GetComponent<Board>();
         _findMatches = FindObjectOfType<FindMatches>();
     }
 
@@ -56,7 +56,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             marker.transform.parent = this.transform;
         }
     }
-    // Update is called once per frame
     void Update()
     {
         TargetX = Column;
@@ -131,31 +130,8 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 _board.DestroyMatches();
 
             }
-            //_otherDot = null;
         }
-
     }
-    /*private void OnMouseDown()
-    {
-        if(_hintManager != null)
-        {
-            _hintManager.DestroyHint();
-        }
-        if (_board.currentState == GameState.move)
-        {
-            _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-
-    }*/
-    /*private void OnMouseUp()
-    {
-        if (_board.currentState == GameState.move)
-        {
-            _finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            CalculateAngle();
-        }
-        
-    }*/
     private void CalculateAngle()
     {
         if (Mathf.Abs(_finalTouchPosition.y - _firstTouchPosition.y) > SwipeResist || Mathf.Abs(_finalTouchPosition.x - _firstTouchPosition.x) > SwipeResist )
@@ -249,28 +225,40 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
     public void MakeRowBomb()
     {
-        IsRowBomb = true;
-        GameObject arrow = Instantiate(RowArrow, transform.position, Quaternion.identity);
-        arrow.transform.parent = this.transform;
+        if (!IsColumnBomb && !IsColorBomb && !IsAdjacentBomb)
+        {
+            IsRowBomb = true;
+            GameObject arrow = Instantiate(RowArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
     }
     public void MakeColumnBomb()
     {
-        IsColumnBomb = true;
-        GameObject arrow = Instantiate(ColumnArrow, transform.position, Quaternion.identity);
-        arrow.transform.parent = this.transform;
+        if (!IsRowBomb && !IsColorBomb && !IsAdjacentBomb)
+        {
+            IsColumnBomb = true;
+            GameObject arrow = Instantiate(ColumnArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
     }
     public void MakeColorBomb()
     {
-        IsColorBomb = true;
-        GameObject color = Instantiate(ColorBomb, transform.position, Quaternion.identity);
-        color.transform.parent = this.transform;
-        this.gameObject.tag = "Color";
+        if (!IsColumnBomb && !IsRowBomb && !IsAdjacentBomb)
+        {
+            IsColorBomb = true;
+            GameObject color = Instantiate(ColorBomb, transform.position, Quaternion.identity);
+            color.transform.parent = this.transform;
+            this.gameObject.tag = "Color";
+        }
     }
     public void MakeAdjacentBomb()
     {
-        IsAdjacentBomb = true;
-        GameObject marker = Instantiate(AdjacetMarker, transform.position, Quaternion.identity);
-        marker.transform.parent = this.transform;
+        if (!IsColumnBomb && !IsColorBomb && !IsRowBomb)
+        {
+            IsAdjacentBomb = true;
+            GameObject marker = Instantiate(AdjacetMarker, transform.position, Quaternion.identity);
+            marker.transform.parent = this.transform;
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)

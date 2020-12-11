@@ -54,6 +54,18 @@ public class GameData : MonoBehaviour
             _saveData = formatter.Deserialize(file) as SaveData;
             file.Close();
         }
+        else
+        {
+            _saveData = new SaveData();
+            _saveData.isActive = new bool[100];
+            _saveData.stars = new int[100];
+            _saveData.highScores = new int[100];
+            _saveData.isActive[0] = true;
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        Save();
     }
     public void OnDisable()
     {
