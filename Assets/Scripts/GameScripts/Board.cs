@@ -550,7 +550,11 @@ public class Board : MonoBehaviour
             ShuffleBoard();
         }
         yield return new WaitForSeconds(refillDelay);
-        currentState = GameState.move;
+        if(currentState != GameState.win)
+        {
+            currentState = GameState.move;
+        }
+        
         streakValue = 1;
     }
     private void SwitchPieces(int column, int row, Vector2 direction)

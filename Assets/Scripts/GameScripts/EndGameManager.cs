@@ -68,11 +68,12 @@ public class EndGameManager : MonoBehaviour
     }
     public void DecreaseCounterValue()
     {
-        if (_board.currentState != GameState.pause || _board.currentState != GameState.win)
+        if (_board.currentState != GameState.pause)
         {
+            Debug.Log(_board.currentState);
             currentCounterValue--;
             counter.text = "" + currentCounterValue;
-            if (currentCounterValue <= 0)
+            if (currentCounterValue <= 0 && _board.currentState != GameState.win)
             {
                 LoseGame();
             }
@@ -101,7 +102,7 @@ public class EndGameManager : MonoBehaviour
 
     private void Update()
     {
-        if(requirements.gameType == GameType.Time && _board.currentState != GameState.win)
+        if(requirements.gameType == GameType.Time)
         {
             _timerSeconds -= Time.deltaTime;
             if(_timerSeconds <= 0)
