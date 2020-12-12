@@ -87,7 +87,8 @@ public class FindMatches : MonoBehaviour
     }
     private IEnumerator FindAllMatches()
     {
-        yield return new WaitForSeconds(.2f);
+        //yield return new WaitForSeconds(.2f);
+       
         for (int i = 0; i < _board.Width; i++)
         {
             for (int h = 0; h < _board.Height; h++)
@@ -110,7 +111,7 @@ public class FindMatches : MonoBehaviour
                                 CurrentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
                                 CurrentMatches.Union(IsAdjacentBomb(leftDotDot, currentDotDot, rightDotDot));
                                 GetNearbyPieces(leftDot, currentDot, rightDot);
-                                currentDot.GetComponent<Dot>().IsMatched = true;
+                                //currentDot.GetComponent<Dot>().IsMatched = true;
                             }
                         }
                     }
@@ -134,6 +135,7 @@ public class FindMatches : MonoBehaviour
                 }
             }
         }
+        yield return null;
     }
     public void MatchColorPieces(string color)
     {
@@ -208,11 +210,11 @@ public class FindMatches : MonoBehaviour
         }
         return dots;
     }
-    public void CheckBombs()
+    public void CheckBombs(MatchType matchType)
     {
         if (_board.CurrentDot != null)
         {
-            if (_board.CurrentDot.IsMatched)
+            if (_board.CurrentDot.IsMatched && _board.CurrentDot.tag == matchType.color)
             {
                 _board.CurrentDot.IsMatched = false;
                 if ((_board.CurrentDot.SwipeAngle > -45 && _board.CurrentDot.SwipeAngle <= 45) || (_board.CurrentDot.SwipeAngle < -135 || _board.CurrentDot.SwipeAngle >= 135))
@@ -227,7 +229,7 @@ public class FindMatches : MonoBehaviour
             else if (_board.CurrentDot.OtherDot != null)
             {
                 Dot otherDot = _board.CurrentDot.OtherDot.GetComponent<Dot>();
-                if (otherDot.IsMatched)
+                if (otherDot.IsMatched && otherDot.tag == matchType.color)
                 {
                     otherDot.IsMatched = false;
                     if ((_board.CurrentDot.SwipeAngle > -45 && _board.CurrentDot.SwipeAngle <= 45) || (_board.CurrentDot.SwipeAngle < -135 || _board.CurrentDot.SwipeAngle >= 135))

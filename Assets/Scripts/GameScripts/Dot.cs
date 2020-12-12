@@ -19,8 +19,8 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private FindMatches _findMatches;
     public GameObject OtherDot;
     private Board _board;
-    private Vector2 _firstTouchPosition;
-    private Vector2 _finalTouchPosition;
+    private Vector2 _firstTouchPosition = Vector2.zero;
+    private Vector2 _finalTouchPosition = Vector2.zero;
     private Vector2 temPosition;
 
     [Header("Swipe Variables")]
@@ -67,8 +67,8 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             if(_board.AllDots[Column,Row] != this.gameObject)
             {
                 _board.AllDots[Column, Row] = this.gameObject;
+                _findMatches.FindingAllMatches();
             }
-            _findMatches.FindingAllMatches();
         }
         else
         {
@@ -84,8 +84,8 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             if (_board.AllDots[Column, Row] != this.gameObject)
             {
                 _board.AllDots[Column, Row] = this.gameObject;
+                _findMatches.FindingAllMatches();
             }
-            _findMatches.FindingAllMatches();
         }
         else
         {
@@ -139,7 +139,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             _board.currentState = GameState.wait;
             SwipeAngle = Mathf.Atan2(_finalTouchPosition.y - _firstTouchPosition.y, _finalTouchPosition.x - _firstTouchPosition.x) * 180 / Mathf.PI;
             MovePieces();
-            //_board.currentState = GameState.wait;
             _board.CurrentDot = this;
         }
         else
@@ -267,6 +266,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             _hintManager.DestroyHint();
         }
+
         if (_board.currentState == GameState.move)
         {
             _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

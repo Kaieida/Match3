@@ -19,6 +19,12 @@ public enum TileKind
 
 }
 [System.Serializable]
+public class MatchType
+{
+    public int type;
+    public string color;
+}
+[System.Serializable]
 public class TileType
 {
     public int x;
@@ -57,6 +63,7 @@ public class Board : MonoBehaviour
     private GoalManager _goalManager;
     private BackgroundTiles[,] _breakableTiles;
     private FindMatches _findMatches;
+    private MatchType _matchType = new MatchType();
     private ScoreManager _scoreManager;
 
     private void Awake()
@@ -198,12 +205,15 @@ public class Board : MonoBehaviour
         return false;
     }
 
-    private int ColumnOrRow()
+    private MatchType ColumnOrRow()
     {
         List<GameObject> matchCopy = _findMatches.CurrentMatches as List<GameObject>;
+        _matchType.type = 0;
+        _matchType.color = "";
         for (int i = 0; i < matchCopy.Count; i++)
         {
             Dot thisDot = matchCopy[i].GetComponent<Dot>();
+            string color = matchCopy[i].tag;
             int column = thisDot.Column;
             int row = thisDot.Row;
             int columnMatch = 0;
@@ -215,198 +225,91 @@ public class Board : MonoBehaviour
                 {
                     continue;
                 }
-                if(nextDot.Column == thisDot.Column && nextDot.CompareTag(thisDot.tag))
+                if(nextDot.Column == thisDot.Column && nextDot.tag == color)
                 {
                     columnMatch++;
                 }
-                if (nextDot.Row == thisDot.Row && nextDot.CompareTag(thisDot.tag))
+                if (nextDot.Row == thisDot.Row && nextDot.tag == color)
                 {
                     rowMatch++;
                 }
             }
             if (columnMatch == 4 || rowMatch == 4)
             {
-                return 1;
+                _matchType.type = 1;
+                _matchType.color = color;
+                return _matchType;
             }
-            if(columnMatch == 2 && rowMatch == 2)
+            else if(columnMatch == 2 && rowMatch == 2)
             {
-                return 2;
+                _matchType.type = 2;
+                _matchType.color = color;
+                return _matchType;
             }
-            if(columnMatch == 3 || rowMatch == 3)
+            else if(columnMatch == 3 || rowMatch == 3)
             {
-                return 3;
+                _matchType.type = 3;
+                _matchType.color = color;
+                return _matchType;
             }
         }
-        return 0;
-        /*
-        int numberHorizontal = 0;
-        int numberVertical = 0;
-        Dot firstPiece = _findMatches.CurrentMatches[0].GetComponent<Dot>();
-        if (firstPiece != null)
-        {
-            foreach (GameObject currentPiece in _findMatches.CurrentMatches)
-            {
-                Dot dot = currentPiece.GetComponent<Dot>();
-                if (dot.Row == firstPiece.Row)
-                {
-                    numberHorizontal++;
-                }
-                if (dot.Column == firstPiece.Column)
-                {
-                    numberVertical++;
-                }
-            }
-        }
-        return (numberVertical == 5 || numberHorizontal == 5);
-        */
+        _matchType.type = 0;
+        _matchType.color = "";
+        return _matchType;
     }
 
     private void CheckToMakeBombs()
     {
         if (_findMatches.CurrentMatches.Count > 3)
         {
-            int typeOfMatch = ColumnOrRow();
-            if (typeOfMatch == 1)
+            MatchType typeOfMatch = ColumnOrRow();
+            if (typeOfMatch.type == 1)
             {
-                if (CurrentDot != null)
+                if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
                 {
-                    if (CurrentDot.IsMatched)
+                    CurrentDot.IsMatched = false;
+                    CurrentDot.MakeColorBomb();
+                }
+                else
+                {
+                    if (CurrentDot.OtherDot != null)
                     {
-                        if (!CurrentDot.IsColorBomb)
+                        Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
+                        if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
                         {
-                            CurrentDot.IsMatched = false;
-                            CurrentDot.MakeColorBomb();
-                        }
-                        else
-                        {
-                            if (CurrentDot.OtherDot != null)
-                            {
-                                Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                                if (otherDot.IsMatched)
-                                {
-                                    if (!otherDot.IsColorBomb)
-                                    {
-                                        otherDot.IsMatched = false;
-                                        otherDot.MakeColorBomb();
-                                    }
-                                }
-                            }
+                            otherDot.IsMatched = false;
+                            otherDot.MakeColorBomb();
                         }
                     }
                 }
             }
-            else if (typeOfMatch == 2)
+            else if (typeOfMatch.type == 2)
             {
-                if (CurrentDot != null)
+                if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
                 {
-                    if (CurrentDot.IsMatched)
+                    CurrentDot.IsMatched = false;
+                    CurrentDot.MakeAdjacentBomb();
+                }
+                else if (CurrentDot.OtherDot != null)
+                {
+                    Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
+                    if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
                     {
-                        if (!CurrentDot.IsAdjacentBomb)
-                        {
-                            CurrentDot.IsMatched = false;
-                            CurrentDot.MakeAdjacentBomb();
-                        }
-                        else
-                        {
-                            if (CurrentDot.OtherDot != null)
-                            {
-                                Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                                if (otherDot.IsMatched)
-                                {
-                                    if (!otherDot.IsAdjacentBomb)
-                                    {
-                                        otherDot.IsMatched = false;
-                                        otherDot.MakeAdjacentBomb();
-                                    }
-                                }
-                            }
-                        }
+                        otherDot.IsMatched = false;
+                        otherDot.MakeAdjacentBomb();
                     }
                 }
             }
-            else if(typeOfMatch == 3)
+            else if (typeOfMatch.type == 3)
             {
-                _findMatches.CheckBombs();
+                _findMatches.CheckBombs(typeOfMatch);
             }
         }
     }
-        
-        /*
-        if (_findMatches.CurrentMatches.Count == 4 || _findMatches.CurrentMatches.Count == 7)
-        {
-            _findMatches.CheckBombs();
-        }
-        if (_findMatches.CurrentMatches.Count == 5 || _findMatches.CurrentMatches.Count == 8)
-        {
-            if (ColumnOrRow())
-            {
-                if (CurrentDot != null)
-                {
-                    if (CurrentDot.IsMatched)
-                    {
-                        if (!CurrentDot.IsColorBomb)
-                        {
-                            CurrentDot.IsMatched = false;
-                            CurrentDot.MakeColorBomb();
-                        }
-                        else
-                        {
-                            if (CurrentDot.OtherDot != null)
-                            {
-                                Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                                if (otherDot.IsMatched)
-                                {
-                                    if (!otherDot.IsColorBomb)
-                                    {
-                                        otherDot.IsMatched = false;
-                                        otherDot.MakeColorBomb();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (CurrentDot != null)
-                {
-                    if (CurrentDot.IsMatched)
-                    {
-                        if (!CurrentDot.IsAdjacentBomb)
-                        {
-                            CurrentDot.IsMatched = false;
-                            CurrentDot.MakeAdjacentBomb();
-                        }
-                        else
-                        {
-                            if (CurrentDot.OtherDot != null)
-                            {
-                                Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                                if (otherDot.IsMatched)
-                                {
-                                    if (!otherDot.IsAdjacentBomb)
-                                    {
-                                        otherDot.IsMatched = false;
-                                        otherDot.MakeAdjacentBomb();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
-    
-
     private void DestroyMatchesAt(int column, int row)
     {
         if (AllDots[column, row].GetComponent<Dot>().IsMatched)
         {
-            if (_findMatches.CurrentMatches.Count >= 4)
-            {
-                CheckToMakeBombs();
-            }
             if (_breakableTiles[column, row] != null)
             {
                 _breakableTiles[column, row].TakeDamage(1);
@@ -430,6 +333,11 @@ public class Board : MonoBehaviour
     }
     public void DestroyMatches()
     {
+        if (_findMatches.CurrentMatches.Count >= 4)
+        {
+            CheckToMakeBombs();
+        }
+        _findMatches.CurrentMatches.Clear();
         for (int i = 0; i < Width; i++)
         {
             for (int h = 0; h < Height; h++)
@@ -440,7 +348,6 @@ public class Board : MonoBehaviour
                 }
             }
         }
-        _findMatches.CurrentMatches.Clear();
         StartCoroutine(DecreaseRowTwo());
     }
 
@@ -517,6 +424,7 @@ public class Board : MonoBehaviour
     }
     private bool MatchesOnBoard()
     {
+        _findMatches.FindingAllMatches();
         for (int i = 0; i < Width; i++)
         {
             for (int h = 0; h < Height; h++)
@@ -536,13 +444,14 @@ public class Board : MonoBehaviour
     {
         yield return new WaitForSeconds(refillDelay);
         RefillBoard();
+        yield return new WaitForSeconds(refillDelay);
         while (MatchesOnBoard())
         {
             streakValue++;
             DestroyMatches();
-            yield return new WaitForSeconds(refillDelay * 2);
+            yield break;
+            //yield return new WaitForSeconds(refillDelay * 2);
         }
-        _findMatches.CurrentMatches.Clear();
         CurrentDot = null;
 
         if (IsDeadLocked())
