@@ -812,6 +812,10 @@ MonoBehaviour:
   - {fileID: 1661336452260852195, guid: 5f3433f11f7521d428e9363570b25284, type: 3}
   DestroyEffect: {fileID: 4042922755112368644, guid: 01ffefa020785694ba182681e72ebdf5,
     type: 3}
+  lockTilePrefab: {fileID: 5719274876574844419, guid: 87dbbe75fa192fd48b70fdf872048e6b,
+    type: 3}
+  concretetilePrefab: {fileID: 102716932401381501, guid: b22ac30d8f30fcc4ab014c0b583f3977,
+    type: 3}
   basePieceValue: 20
   refillDelay: 0.5
   BoardLayout: []

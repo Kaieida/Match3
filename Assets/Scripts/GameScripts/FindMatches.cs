@@ -43,14 +43,17 @@ public class FindMatches : MonoBehaviour
         if (dot1.IsRowBomb)
         {
             CurrentMatches.Union(GetRowPieces(dot1.Row));
+            _board.BombRow(dot1.Row);
         }
         if (dot2.IsRowBomb)
         {
             CurrentMatches.Union(GetRowPieces(dot2.Row));
+            _board.BombRow(dot2.Row);
         }
         if (dot3.IsRowBomb)
         {
             CurrentMatches.Union(GetRowPieces(dot3.Row));
+            _board.BombRow(dot3.Row);
         }
         return currentDots;
     }
@@ -60,14 +63,17 @@ public class FindMatches : MonoBehaviour
         if (dot1.IsColumnBomb)
         {
             CurrentMatches.Union(GetColumnPieces(dot1.Column));
+            _board.BombColumn(dot1.Column);
         }
         if (dot2.IsColumnBomb)
         {
             CurrentMatches.Union(GetColumnPieces(dot2.Column));
+            _board.BombColumn(dot2.Column);
         }
         if (dot3.IsColumnBomb)
         {
             CurrentMatches.Union(GetColumnPieces(dot3.Column));
+            _board.BombColumn(dot3.Column);
         }
         return currentDots;
     }

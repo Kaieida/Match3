@@ -152,13 +152,20 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         OtherDot = _board.AllDots[Column + (int)direction.x, Row + (int)direction.y];
         PreviousRow = Row;
         PreviousColumn = Column;
-        if (OtherDot != null)
+        if (_board.lockTiles[Column, Row] == null && _board.lockTiles[Column + (int)direction.x, Row + (int)direction.y] == null)
         {
-            OtherDot.GetComponent<Dot>().Column += -1 * (int)direction.x;
-            OtherDot.GetComponent<Dot>().Row += -1 * (int)direction.y;
-            Column += (int)direction.x;
-            Row += (int)direction.y;
-            StartCoroutine(CheckMove());
+            if (OtherDot != null)
+            {
+                OtherDot.GetComponent<Dot>().Column += -1 * (int)direction.x;
+                OtherDot.GetComponent<Dot>().Row += -1 * (int)direction.y;
+                Column += (int)direction.x;
+                Row += (int)direction.y;
+                StartCoroutine(CheckMove());
+            }
+            else
+            {
+                _board.currentState = GameState.move;
+            }
         }
         else
         {

@@ -12,6 +12,8 @@ TagManager:
   - Blue
   - Purple
   - Board
+  - Concrete
+  - Lock
   layers:
   - Default
   - TransparentFX
