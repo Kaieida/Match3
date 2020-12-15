@@ -14,7 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 6
   height: 8
-  boardLayout: []
+  boardLayout:
+  - x: 0
+    y: 4
+    tileKind: 4
+  - x: 1
+    y: 4
+    tileKind: 4
+  - x: 2
+    y: 4
+    tileKind: 4
+  - x: 3
+    y: 4
+    tileKind: 4
   dots:
   - {fileID: 1661336452260852195, guid: 5f3433f11f7521d428e9363570b25284, type: 3}
   - {fileID: 5212372978287068747, guid: 42772d26f0ffa5947814737df0d37d32, type: 3}
