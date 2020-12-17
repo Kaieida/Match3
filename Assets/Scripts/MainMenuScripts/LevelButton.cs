@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class LevelButton : MonoBehaviour
 {
@@ -12,12 +11,12 @@ public class LevelButton : MonoBehaviour
     public Sprite lockedSprite;
     private Image _buttonImage;
     private Button _myButton;
-    private TextMeshProUGUI _levelText;
+    private Text _levelText;
     private int _starsActive;
 
     [Header ("Level UI")]
     public Image[] stars;
-    public TextMeshProUGUI levelText;
+    public Text levelText;
     public int level;
     public GameObject confirmPanel;
 
@@ -77,11 +76,6 @@ public class LevelButton : MonoBehaviour
     private void ShowLevel()
     {
         levelText.text = "" + level;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     public void ConfirmPanel(int level)
     {
