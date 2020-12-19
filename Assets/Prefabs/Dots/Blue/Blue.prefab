@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7564844352785105442}
   - component: {fileID: -3375258219284076980}
   - component: {fileID: -1539838385289118154}
+  - component: {fileID: 7094324432271498946}
   m_Layer: 0
   m_Name: Blue
   m_TagString: Blue
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8243378547976188335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.539, y: 0.908, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,6 +119,7 @@ MonoBehaviour:
   PreviousColumn: 0
   PreviousRow: 0
   IsMatched: 0
+  _animator: {fileID: 7094324432271498946}
   OtherDot: {fileID: 0}
   SwipeAngle: 0
   SwipeResist: 1
@@ -125,11 +127,27 @@ MonoBehaviour:
   IsColumnBomb: 0
   IsRowBomb: 0
   IsAdjacentBomb: 0
-  AdjacetMarker: {fileID: 3451455452613843235, guid: 061639ac43d5a7b4a969bc521256abfc,
-    type: 3}
-  RowArrow: {fileID: 8264583090048797091, guid: f9134025d194ce64eae788531176136c,
-    type: 3}
-  ColumnArrow: {fileID: 1518305123393062673, guid: e33b13d3ed59fcd48ac1d65fa5df5386,
-    type: 3}
-  ColorBomb: {fileID: 8493520389574153683, guid: 41f2c37c2052d3740a282c0fac6be258,
-    type: 3}
+  adjacentSprite: {fileID: 21300000, guid: 913ce927aa1f1474baa10f20b24af9c7, type: 3}
+  rowSprite: {fileID: 21300000, guid: a968b1965faf3ac458fe75486e571171, type: 3}
+  columnSprite: {fileID: 21300000, guid: 13a33e0f62f8e44438e3227e2e717e51, type: 3}
+  colorSprite: {fileID: 21300000, guid: b872af187791eaf44816e335f1a68f44, type: 3}
+  flag: 0
+--- !u!95 &7094324432271498946
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243378547976188335}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 68ce51349eeedc545ace25b57cdabcec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

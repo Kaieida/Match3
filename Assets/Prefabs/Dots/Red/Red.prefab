@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7402830226403729970}
   - component: {fileID: 5754504154699472610}
   - component: {fileID: 2628508931944242744}
+  - component: {fileID: -4548563636430904461}
   m_Layer: 0
   m_Name: Red
   m_TagString: Red
@@ -118,6 +119,7 @@ MonoBehaviour:
   PreviousColumn: 0
   PreviousRow: 0
   IsMatched: 0
+  _animator: {fileID: -4548563636430904461}
   OtherDot: {fileID: 0}
   SwipeAngle: 0
   SwipeResist: 1
@@ -125,11 +127,27 @@ MonoBehaviour:
   IsColumnBomb: 0
   IsRowBomb: 0
   IsAdjacentBomb: 0
-  AdjacetMarker: {fileID: 3451455452613843235, guid: 95456f45fc6254b479ca62598aaa1e6f,
-    type: 3}
-  RowArrow: {fileID: 8264583090048797091, guid: 6cea6d52b3a49ef46ad07ba037456183,
-    type: 3}
-  ColumnArrow: {fileID: 1518305123393062673, guid: 8e635d2cda4bb794790cdb81f093be20,
-    type: 3}
-  ColorBomb: {fileID: 8493520389574153683, guid: 41f2c37c2052d3740a282c0fac6be258,
-    type: 3}
+  adjacentSprite: {fileID: 21300000, guid: f6a254022e4802341b4e6e95a91ece5a, type: 3}
+  rowSprite: {fileID: 21300000, guid: 6c62530b7aefd094c8fa619ad32d6030, type: 3}
+  columnSprite: {fileID: 21300000, guid: d134f71ace4bf364883ebe04f1ec1463, type: 3}
+  colorSprite: {fileID: 21300000, guid: b872af187791eaf44816e335f1a68f44, type: 3}
+  flag: 0
+--- !u!95 &-4548563636430904461
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402830226403729971}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a043fe09e9d554446a8a66d1075db9c9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

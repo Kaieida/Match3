@@ -63,12 +63,12 @@ public class GameData : MonoBehaviour
             _saveData.isActive[0] = true;
         }
     }
-    private void OnApplicationQuit()
+    /*private void OnApplicationQuit()
     {
         Save();
-    }
-    public void OnDisable()
+    }*/
+    /*public void OnDisable()
     {
         Save();
-    }
+    }*/
 }

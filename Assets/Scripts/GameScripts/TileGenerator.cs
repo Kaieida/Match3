@@ -15,7 +15,6 @@ public class TileGenerator : MonoBehaviour
         {
             for(int h = 0; h < _board.Height; h++)
             {
-                Debug.Log("Created");
                 int randomTile = Random.Range(0, 1);
                 Vector2 spawnPosition = new Vector2(i, h);
                 Instantiate(tileArray[randomTile],spawnPosition , Quaternion.identity);

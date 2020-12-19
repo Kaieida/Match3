@@ -70,7 +70,6 @@ public class EndGameManager : MonoBehaviour
     {
         if (_board.currentState != GameState.pause)
         {
-            Debug.Log(_board.currentState);
             currentCounterValue--;
             counter.text = "" + currentCounterValue;
             if (currentCounterValue <= 0 && _board.currentState != GameState.win)

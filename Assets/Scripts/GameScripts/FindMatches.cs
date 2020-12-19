@@ -131,6 +131,10 @@ public class FindMatches : MonoBehaviour
                             Dot downDotDot = downDot.GetComponent<Dot>();
                             if (upDot.tag == currentDot.tag && downDot.tag == currentDot.tag)
                             {
+                                Debug.Log(upDot.tag);
+                                Debug.Log(currentDot.tag);
+                                Debug.Log(downDot.tag);
+                                Debug.Log("__________");
                                 CurrentMatches.Union(IsColumnBomb(upDotDot, currentDotDot, downDotDot));
                                 CurrentMatches.Union(IsRowBomb(upDotDot, currentDotDot, downDotDot));
                                 CurrentMatches.Union(IsAdjacentBomb(upDotDot, currentDotDot, downDotDot));

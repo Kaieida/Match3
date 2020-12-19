@@ -37,12 +37,13 @@ public class TileType
 
 public class Board : MonoBehaviour
 {
-    public GameState currentState = GameState.move;
+    
 
     [Header("Scriptable object stuff")]
     public World world;
     public int level;
 
+    public GameState currentState = GameState.move;
     [Header("Board dimensions")]
     public int Width;
     public int Height;
@@ -112,6 +113,7 @@ public class Board : MonoBehaviour
         AllDots = new GameObject[Width, Height];
         SetUp();
         currentState = GameState.pause;
+        //Lean.Touch.LeanTouch.OnFingerSwipe += Dot.Swipe;
     }
     private void GenerateBlankSpaces()
     {
@@ -195,7 +197,7 @@ public class Board : MonoBehaviour
                     backgroundTile.transform.parent = this.transform;
                     backgroundTile.name = "( " + i + ", " + h + " )";
                     int dotToUse = Random.Range(0, Dots.Length);
-
+                    dotToUse = Random.Range(0, Dots.Length);
                     int maxIterations = 0;
                     while (MatchesAt(i, h, Dots[dotToUse]) && maxIterations < 100)
                     {
@@ -417,9 +419,10 @@ public class Board : MonoBehaviour
                 _goalManager.UpdateGoals();
             }
 
-            GameObject particle = Instantiate(DestroyEffect, AllDots[column, row].transform.position, Quaternion.identity);
-            Destroy(particle, 0.5f);
-            Destroy(AllDots[column, row]);
+            /*GameObject particle = Instantiate(DestroyEffect, AllDots[column, row].transform.position, Quaternion.identity);
+            Destroy(particle, 0.5f);*/
+            AllDots[column, row].GetComponent<Dot>().StartAnimation();
+            //Destroy(AllDots[column, row]);
             _scoreManager.IncreaseScore(basePieceValue * streakValue);
             AllDots[column, row] = null;
         }
@@ -541,9 +544,30 @@ public class Board : MonoBehaviour
         }
         StartCoroutine(DecreaseRowTwo());
     }
+    public IEnumerator test()
+    {
+        yield return new WaitForSeconds(5f);
+        if (_findMatches.CurrentMatches.Count >= 4)
+        {
+            CheckToMakeBombs();
+        }
+        _findMatches.CurrentMatches.Clear();
+        for (int i = 0; i < Width; i++)
+        {
+            for (int h = 0; h < Height; h++)
+            {
+                if (AllDots[i, h] != null)
+                {
+                    DestroyMatchesAt(i, h);
+                }
+            }
+        }
+        StartCoroutine(DecreaseRowTwo());
+    }
 
     private IEnumerator DecreaseRowTwo()
     {
+        yield return new WaitForSeconds(refillDelay);//IF SOMETHING BUGS OUT, try to delete this line of code.
         for (int i = 0; i < Width; i++)
         {
             for (int h = 0; h < Height; h++)
@@ -565,29 +589,6 @@ public class Board : MonoBehaviour
         yield return new WaitForSeconds(refillDelay * 0.5f);
         StartCoroutine(FillBoard());
     }
-
-    private IEnumerator DecreaseRow()
-    {
-        int nullCount = 0;
-        for (int i = 0; i < Width; i++)
-        {
-            for (int h = 0; h < Height; h++)
-            {
-                if (AllDots[i, h] == null)
-                {
-                    nullCount++;
-                }
-                else if (nullCount > 0)
-                {
-                    AllDots[i, h].GetComponent<Dot>().Row -= nullCount;
-                    AllDots[i, h] = null;
-                }
-            }
-            nullCount = 0;
-        }
-        yield return new WaitForSeconds(0.4f);
-        StartCoroutine(FillBoard());
-    }
     private void RefillBoard()
     {
         for (int i = 0; i < Width; i++)
@@ -607,8 +608,10 @@ public class Board : MonoBehaviour
                     maxIterations = 0;
                     GameObject piece = Instantiate(Dots[dotToUse], tempPosition, Quaternion.identity);
                     AllDots[i, h] = piece;
+                    piece.transform.parent = transform;
                     piece.GetComponent<Dot>().Row = h;
                     piece.GetComponent<Dot>().Column = i;
+                    piece.name = "(" + i + ", " + h + ")";
                 }
             }
         }
