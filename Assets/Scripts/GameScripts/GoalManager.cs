@@ -7,7 +7,7 @@ public class BlankGoal
 {
     public int numberNeeded;
     public int numberCollected;
-    public Sprite goalSprite;//change to 
+    public Sprite goalSprite;
     public string matchValue;
 }
 
@@ -20,10 +20,12 @@ public class GoalManager : MonoBehaviour
     //public GameObject goalGameParent;//uncomment if broken
     private EndGameManager _endGame;
     private Board _board;
+    private ScoreManager _scoreManager;
     // Start is called before the first frame update
     void Start()
     {
-        _board = FindObjectOfType<Board>();
+        _board = GameObject.FindWithTag("Board").GetComponent<Board>();
+        _scoreManager = FindObjectOfType<ScoreManager>();
         GetGoals();
         SetupGoals();
         _endGame = FindObjectOfType<EndGameManager>();
@@ -82,7 +84,7 @@ public class GoalManager : MonoBehaviour
                 currentGoals[i].thisText.text = "" + levelGoals[i].numberCollected + "/" + levelGoals[i].numberNeeded;
             }
         }
-        if(goalsCompleted >= levelGoals.Length)
+        if(goalsCompleted >= levelGoals.Length && _scoreManager.score >= _board.scoreGoals[2])
         {
             if(_endGame != null)
             {

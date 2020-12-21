@@ -23,6 +23,7 @@ public class EndGameManager : MonoBehaviour
     public GameObject timesLabel;
     public GameObject youWinPanel;
     public GameObject youLosePanel;
+    [SerializeField] private GameObject[] starArray = null;
     public Text counter;
     public int currentCounterValue;
     private float _timerSeconds;
@@ -32,8 +33,7 @@ public class EndGameManager : MonoBehaviour
     {
         _board = FindObjectOfType<Board>();
         SetGameType();
-        SetupGame();
-        
+        SetupGame();  
     }
 
     private void SetGameType()
@@ -83,16 +83,20 @@ public class EndGameManager : MonoBehaviour
     {
         youWinPanel.SetActive(true);
         _board.currentState = GameState.win;
-        //currentCounterValue = 0;
         counter.text = "" + currentCounterValue;
         FadePanelController fade = FindObjectOfType<FadePanelController>();
+        GameData _gameData = FindObjectOfType<GameData>();
+        for(int i = 0; i < _gameData._saveData.stars[_board.level]; i++)
+        {
+            Debug.Log(i);
+            starArray[i].GetComponent<Image>().enabled = true;
+        }
         fade.GameOver();
     }
     public void LoseGame()
     {
         youLosePanel.SetActive(true);
         _board.currentState = GameState.lose;
-        Debug.Log("You suck!");
         currentCounterValue = 0;
         counter.text = "" + currentCounterValue;
         FadePanelController fade = FindObjectOfType<FadePanelController>();

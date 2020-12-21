@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     private Board _board;
     public Text scoreText;
+    [SerializeField] private Text _winPanelScore;
     public int score;
     public Image scoreBar;
     private GameData _gameData;
@@ -57,6 +58,7 @@ public class ScoreManager : MonoBehaviour
         {
             int length = _board.scoreGoals.Length;
             scoreBar.fillAmount = (float)score / (float)_board.scoreGoals[length - 1];
+            _winPanelScore.text = "Score: " + score;
         }
     }
 }

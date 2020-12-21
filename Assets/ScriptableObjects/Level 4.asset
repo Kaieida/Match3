@@ -15,16 +15,22 @@ MonoBehaviour:
   width: 10
   height: 10
   boardLayout:
-  - x: 0
-    y: 0
+  - x: 5
+    y: 5
     tileKind: 1
-  - x: 0
+  - x: 5
+    y: 6
+    tileKind: 1
+  - x: 5
+    y: 7
+    tileKind: 1
+  - x: 5
+    y: 8
+    tileKind: 1
+  - x: 5
     y: 9
     tileKind: 1
-  - x: 9
-    y: 0
-    tileKind: 1
-  - x: 9
+  - x: 4
     y: 9
     tileKind: 1
   dots:
