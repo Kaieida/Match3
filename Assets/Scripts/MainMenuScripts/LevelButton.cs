@@ -20,6 +20,7 @@ public class LevelButton : MonoBehaviour
     public int level;
     public GameObject confirmPanel;
 
+    [SerializeField] private AudioSource _audioSource;
     private GameData _gameData;
     // Start is called before the first frame update
     void Start()
@@ -79,6 +80,7 @@ public class LevelButton : MonoBehaviour
     }
     public void ConfirmPanel(int level)
     {
+        _audioSource.Play();
         confirmPanel.GetComponent<ConfirmPanel>().level = level;
         confirmPanel.SetActive(true);
     }

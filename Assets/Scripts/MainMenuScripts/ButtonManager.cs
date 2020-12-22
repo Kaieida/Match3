@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonManager : MonoBehaviour
 {
-    //[SerializeField] private Sprite secondImage;
-    // Start is called before the first frame update
+    [SerializeField] private AudioSource _clickSound;
     void Start()
     {
         
@@ -19,7 +18,13 @@ public class ButtonManager : MonoBehaviour
     }
     public void LevelSelectMenu(GameObject levelPanel)
     {
+        _clickSound.Play();
         levelPanel.SetActive(true);
+    }
+    public void BackToStartMenu(GameObject levelPanel)
+    {
+        _clickSound.Play();
+        levelPanel.SetActive(false);
     }
     public void ButtonChange(Sprite sprite)
     {

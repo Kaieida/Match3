@@ -71,6 +71,7 @@ public class Board : MonoBehaviour
     private bool[,] blankSpaces;
     private int streakValue = 1;
     private GoalManager _goalManager;
+    private SoundManager _soundManager;
     private BackgroundTiles[,] _breakableTiles;
     private BackgroundTiles[,] _concreteTiles;
     private FindMatches _findMatches;
@@ -101,7 +102,7 @@ public class Board : MonoBehaviour
     }
     void Start()
     {
-        
+        _soundManager = FindObjectOfType<SoundManager>();
         _goalManager = FindObjectOfType<GoalManager>();
         _scoreManager = FindObjectOfType<ScoreManager>();
         _breakableTiles = new BackgroundTiles[Width, Height];
@@ -418,7 +419,10 @@ public class Board : MonoBehaviour
                 _goalManager.CompareGoal(AllDots[column,row].tag.ToString());
                 _goalManager.UpdateGoals();
             }
-
+            if(_soundManager != null)
+            {
+                _soundManager.PlayRandomDestroyNoise();
+            }
             /*GameObject particle = Instantiate(DestroyEffect, AllDots[column, row].transform.position, Quaternion.identity);
             Destroy(particle, 0.5f);*/
             AllDots[column, row].GetComponent<Dot>().StartAnimation();

@@ -20,7 +20,7 @@ public class ConfirmPanel : MonoBehaviour
     public Text highScoreText;
     public Text cloudLevel;
 
-
+    [SerializeField] private AudioSource _audioSource;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -58,10 +58,12 @@ public class ConfirmPanel : MonoBehaviour
     }
     public void Cancel()
     {
+        _audioSource.Play();
         this.gameObject.SetActive(false);
     }
     public void Play()
     {
+        _audioSource.Play();
         PlayerPrefs.SetInt("Current Level", level - 1);
         SceneManager.LoadScene(levelToLoad);
     }

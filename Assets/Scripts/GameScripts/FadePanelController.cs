@@ -6,11 +6,13 @@ public class FadePanelController : MonoBehaviour
 {
     public Animator panelAnim;
     public Animator gameInfoAnim;
+    [SerializeField] private GameObject _soundManager;
 
     public void Ok()
     {
         if (panelAnim != null && gameInfoAnim != null)
         {
+
             panelAnim.SetBool("Out", true);
             gameInfoAnim.SetBool("Out", true);
             StartCoroutine(GameStart());
