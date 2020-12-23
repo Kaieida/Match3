@@ -13,7 +13,17 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayRandomDestroyNoise()
     {
-        _audioArray[0].Play();
+        if (PlayerPrefs.HasKey("Sound"))
+        {
+            if (PlayerPrefs.GetInt("Sound") == 1)
+            {
+                _audioArray[0].Play();
+            }
+        }
+        else
+        {
+            _audioArray[0].Play();
+        }
     }
     // Update is called once per frame
     void Update()

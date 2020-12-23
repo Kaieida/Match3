@@ -38,7 +38,24 @@ public class PauseManager : MonoBehaviour
     }
     public void SoundButton()
     {
-
+        if (PlayerPrefs.HasKey("Sound"))
+        {
+            if (PlayerPrefs.GetInt("Sound") == 0)
+            {
+                soundButton.image.sprite = musicOn;
+                PlayerPrefs.SetInt("Sound", 1);
+            }
+            else
+            {
+                soundButton.image.sprite = musicOff;
+                PlayerPrefs.SetInt("Sound", 0);
+            }
+        }
+        else
+        {
+            soundButton.image.sprite = musicOn;
+            PlayerPrefs.SetInt("Sound", 1);
+        }
     }
     public void PauseGame()
     {
