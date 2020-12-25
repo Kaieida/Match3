@@ -90,7 +90,6 @@ public class GoalManager : MonoBehaviour
             {
                 _endGame.WinGame();
             }
-            Debug.Log("you win!");
         }
     }
     public void CompareGoal(string goalToCompare)

@@ -53,7 +53,6 @@ public class Board : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject breakableTilePrefab;
     public GameObject[] Dots;
-    public GameObject DestroyEffect;
     public GameObject lockTilePrefab;
     public GameObject concretetilePrefab;
     public GameObject slimePiecePrefab;
@@ -427,7 +426,11 @@ public class Board : MonoBehaviour
             Destroy(particle, 0.5f);*/
             AllDots[column, row].GetComponent<Dot>().StartAnimation();
             //Destroy(AllDots[column, row]);
-            _scoreManager.IncreaseScore(basePieceValue * streakValue);
+            if (currentState != GameState.win || currentState != GameState.lose)
+            {
+                _scoreManager.IncreaseScore(basePieceValue * streakValue);
+            }
+            
             AllDots[column, row] = null;
         }
     }

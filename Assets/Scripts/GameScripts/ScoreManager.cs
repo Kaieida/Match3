@@ -7,6 +7,7 @@ public class ScoreManager : MonoBehaviour
 {
     private Board _board;
     public Text scoreText;
+    [SerializeField] private Text _scoreGoal;
     [SerializeField] private Text _winPanelScore;
     public int score;
     public Image scoreBar;
@@ -25,6 +26,7 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         scoreText.text = score.ToString();
+        _scoreGoal.text = "Score goal: " + _board.scoreGoals[2];
     }
     public void IncreaseScore(int amountToIncrease)
     {

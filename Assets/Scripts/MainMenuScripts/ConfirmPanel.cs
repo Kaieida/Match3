@@ -47,7 +47,7 @@ public class ConfirmPanel : MonoBehaviour
     }
     private void SetText()
     {
-        highScoreText.text = "" + _highScore;
+        highScoreText.text = "HighScore: " + _highScore;
         //startText.text = "" + _starsActive + "/3";
         cloudLevel.text = "Level " + level;
     }
