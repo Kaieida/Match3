@@ -65,6 +65,7 @@ public class ConfirmPanel : MonoBehaviour
     {
         _audioSource.Play();
         PlayerPrefs.SetInt("Current Level", level - 1);
+        Debug.Log(levelToLoad);
         SceneManager.LoadScene(levelToLoad);
     }
 }
