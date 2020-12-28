@@ -1495,6 +1495,8 @@ MonoBehaviour:
     type: 3}
   breakableTilePrefab: {fileID: 145447611917957037, guid: 163a4b11133cfc14abc7128f955b6b66,
     type: 3}
+  _backgroundTile: {fileID: 3653030625557451141, guid: bc8df089803bc0f4099e2573080a036c,
+    type: 3}
   Dots:
   - {fileID: 8243378547976188335, guid: 81ae19e09efd12143b8025300de488c2, type: 3}
   - {fileID: 5212372978287068747, guid: 42772d26f0ffa5947814737df0d37d32, type: 3}
@@ -1536,7 +1538,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306606565}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35dd6a01a460700459fd79734931c0c0, type: 3}
   m_Name: 

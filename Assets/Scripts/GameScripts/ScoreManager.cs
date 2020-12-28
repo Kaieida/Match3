@@ -50,7 +50,7 @@ public class ScoreManager : MonoBehaviour
             {
                 _gameData._saveData.stars[_board.level] = numberStars;
             }
-            _gameData.Save();
+            //_gameData.Save();
         }
         UpdateBar();
     }

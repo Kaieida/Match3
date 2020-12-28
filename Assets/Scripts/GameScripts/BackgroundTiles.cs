@@ -21,19 +21,19 @@ public class BackgroundTiles : MonoBehaviour
                 _goalManager.CompareGoal(this.gameObject.tag);
                 _goalManager.UpdateGoals();
             }
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }  
     }
 
     public void TakeDamage(int damage)
     {
-        hitPoints -= damage;
-        MakeLighter();
+        /*hitPoints -= damage;
+        MakeLighter();*/
     }
     private void MakeLighter()
     {
-        Color color = sprite.color;
+        /*Color color = sprite.color;
         float newAlpha = color.a * 0.5f;
-        sprite.color = new Color(color.r,color.g,color.b,newAlpha);
+        sprite.color = new Color(color.r,color.g,color.b,newAlpha);*/
     }
 }

@@ -93,7 +93,7 @@ public class FindMatches : MonoBehaviour
     }
     private IEnumerator FindAllMatches()
     {
-        yield return new WaitForSeconds(.2f);
+        yield return new WaitForSeconds(.1f);
        
         for (int i = 0; i < _board.Width; i++)
         {

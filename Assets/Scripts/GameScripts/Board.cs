@@ -52,6 +52,7 @@ public class Board : MonoBehaviour
     [Header("Prefabs")]
     public GameObject tilePrefab;
     public GameObject breakableTilePrefab;
+    [SerializeField] private GameObject _backgroundTile;
     public GameObject[] Dots;
     public GameObject lockTilePrefab;
     public GameObject concretetilePrefab;
@@ -73,6 +74,7 @@ public class Board : MonoBehaviour
     private SoundManager _soundManager;
     private BackgroundTiles[,] _breakableTiles;
     private BackgroundTiles[,] _concreteTiles;
+    private GameObject[,] _backgroundTiles;
     private FindMatches _findMatches;
     private MatchType _matchType = new MatchType();
     private ScoreManager _scoreManager;
@@ -104,6 +106,7 @@ public class Board : MonoBehaviour
         _soundManager = FindObjectOfType<SoundManager>();
         _goalManager = FindObjectOfType<GoalManager>();
         _scoreManager = FindObjectOfType<ScoreManager>();
+        _backgroundTiles = new GameObject[Width, Height];
         _breakableTiles = new BackgroundTiles[Width, Height];
         lockTiles = new BackgroundTiles[Width, Height];
         _concreteTiles = new BackgroundTiles[Width, Height];
@@ -115,6 +118,27 @@ public class Board : MonoBehaviour
         currentState = GameState.pause;
         //Lean.Touch.LeanTouch.OnFingerSwipe += Dot.Swipe;
     }
+    private void GenerateBackgroundTiles()
+    {
+        for(int i = 0; i < Width; i++)
+        {
+            for (int h = 0; h < Height; h++)
+            {
+                Vector2 tempPos = new Vector2(i, h);
+                GameObject tile = Instantiate(_backgroundTile, tempPos, Quaternion.identity);
+                _backgroundTiles[i, h] = tile;
+            }
+        }
+        for (int i = 0; i < BoardLayout.Length; i++)
+        {
+            //BoardLayout[i].x 
+            Destroy(_backgroundTiles[BoardLayout[i].x, BoardLayout[i].y]);
+            /*Vector2 tempPos = new Vector2(BoardLayout[i].x, BoardLayout[i].y);
+            GameObject tile = Instantiate(_backgroundTile, tempPos, Quaternion.identity);
+            _backgroundTiles[BoardLayout[i].x, BoardLayout[i].y] = tile;*/
+        }
+
+    }
     private void GenerateBlankSpaces()
     {
         for (int i = 0; i < BoardLayout.Length; i++)
@@ -122,6 +146,7 @@ public class Board : MonoBehaviour
             if (BoardLayout[i].tileKind == TileKind.Blank)
             {
                 blankSpaces[BoardLayout[i].x, BoardLayout[i].y] = true;
+                //Destroy(_backgroundTiles[BoardLayout[i].x, BoardLayout[i].y]);
             }
         }
     }
@@ -138,7 +163,6 @@ public class Board : MonoBehaviour
             }
         }
     }
-
     private void GenerateLockTiles()
     {
         for (int i = 0; i < BoardLayout.Length; i++)
@@ -178,11 +202,13 @@ public class Board : MonoBehaviour
 
     private void SetUp()
     {
-        GenerateBlankSpaces();
+        GenerateBackgroundTiles();
+        //GenerateBlankSpaces();
         GenerateBreakableTiles();
         GenerateLockTiles();
         GenerateConcreteTiles();
         GenerateSlimeTiles();
+        GenerateBlankSpaces();
         for (int i = 0; i < Width; i++)
         {
             for (int h = 0; h < Height; h++)
