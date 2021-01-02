@@ -110,10 +110,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             transform.position = temPosition;
         }
     }
-    public IEnumerator test()
-    {
-        yield return null;
-    }
     public IEnumerator CheckMove()
     {
         if (IsColorBomb)
@@ -251,7 +247,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
-    private void FindMatches()
+    /*private void FindMatches()
     {
         if (Column > 0 && Column < _board.Width - 1)
         {
@@ -283,7 +279,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
 
         }
-    }
+    }*/
     public void MakeRowBomb()
     {
         if (!IsColumnBomb && !IsColorBomb && !IsAdjacentBomb)

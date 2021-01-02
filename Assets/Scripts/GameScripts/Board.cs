@@ -219,9 +219,9 @@ public class Board : MonoBehaviour
 
                     Vector2 _tempPosition = new Vector2(i, h + OffSet);
                     Vector2 tilePosition = new Vector2(i, h);//if spawning of jellys are wrong, add this instead of tempposition.
-                    GameObject backgroundTile = Instantiate(tilePrefab, _tempPosition, Quaternion.identity) as GameObject;
+                    /*GameObject backgroundTile = Instantiate(tilePrefab, _tempPosition, Quaternion.identity) as GameObject;
                     backgroundTile.transform.parent = this.transform;
-                    backgroundTile.name = "( " + i + ", " + h + " )";
+                    backgroundTile.name = "( " + i + ", " + h + " )";*/
                     int dotToUse = Random.Range(0, Dots.Length);
                     dotToUse = Random.Range(0, Dots.Length);
                     int maxIterations = 0;
@@ -391,7 +391,7 @@ public class Board : MonoBehaviour
     }
     public void BombRow(int row)
     {
-        for (int i = 0; i < Width; i++)
+        /*for (int i = 0; i < Width; i++)
         {
             if (_concreteTiles[i, row])
             {
@@ -401,11 +401,11 @@ public class Board : MonoBehaviour
                     _concreteTiles[i, row] = null;
                 }
             }
-        }
+        }*/
     }
     public void BombColumn(int column)
     {
-        for (int i = 0; i < Width; i++)
+        /*for (int i = 0; i < Width; i++)
         {
             if (_concreteTiles[column, i])
             {
@@ -415,7 +415,7 @@ public class Board : MonoBehaviour
                     _concreteTiles[column, i] = null;
                 }
             }
-        }
+        }*/
     }
     private void DestroyMatchesAt(int column, int row)
     {

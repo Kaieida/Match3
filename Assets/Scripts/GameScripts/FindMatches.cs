@@ -6,6 +6,8 @@ using System.Linq;
 public class FindMatches : MonoBehaviour
 {
     private Board _board;
+    [SerializeField] private GameObject _verticalPaw;
+    [SerializeField] private GameObject _horizontalPaw;
     public List<GameObject> CurrentMatches = new List<GameObject>();
     void Start()
     {
@@ -181,7 +183,8 @@ public class FindMatches : MonoBehaviour
     private List<GameObject> GetColumnPieces(int column)
     {
         List<GameObject> dots = new List<GameObject>();
-
+        //Transform spawnPosition = new Vector3(column, _board.Height - 1, 0);
+        Instantiate(_verticalPaw, new Vector3(column, _board.Height - 1, 0), Quaternion.identity);
         for (int i = 0; i < _board.Height; i++)
         {
             if (_board.AllDots[column, i] != null)
@@ -195,12 +198,14 @@ public class FindMatches : MonoBehaviour
                 dot.IsMatched = true;
             }
         }
+        Debug.Log(column + " " + _board.Height);
         return dots;
     }
     private List<GameObject> GetRowPieces(int row)
     {
         List<GameObject> dots = new List<GameObject>();
-
+        Instantiate(_horizontalPaw, new Vector3(_board.Width-1, row, 0), Quaternion.Euler(0,0,-90));
+        //paw.transform.parent = _board.transform;
         for (int i = 0; i < _board.Width; i++)
         {
             if (_board.AllDots[i, row] != null)
@@ -214,6 +219,7 @@ public class FindMatches : MonoBehaviour
                 dot.IsMatched = true;
             }
         }
+        Debug.Log(_board.Width + " " + row);
         return dots;
     }
     public void CheckBombs(MatchType matchType)
