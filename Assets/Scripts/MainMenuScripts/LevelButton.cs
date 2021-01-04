@@ -11,7 +11,7 @@ public class LevelButton : MonoBehaviour
     public Sprite lockedSprite;
     private Image _buttonImage;
     private Button _myButton;
-    private Text _levelText;
+    //private Text _levelText;
     private int _starsActive;
 
     [Header ("Level UI")]

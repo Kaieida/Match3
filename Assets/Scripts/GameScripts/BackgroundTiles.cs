@@ -5,12 +5,12 @@ using UnityEngine;
 public class BackgroundTiles : MonoBehaviour
 {
     public int hitPoints;
-    private SpriteRenderer sprite;
+    //private SpriteRenderer sprite;
     private GoalManager _goalManager;
     private void Start()
     {
         _goalManager = FindObjectOfType<GoalManager>();
-        sprite = GetComponent<SpriteRenderer>();
+        //sprite = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {

@@ -15,12 +15,6 @@ public class GoalPanel : MonoBehaviour
     {
         Setup();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void Setup()
     {
         thisImage.sprite = thisSprite;

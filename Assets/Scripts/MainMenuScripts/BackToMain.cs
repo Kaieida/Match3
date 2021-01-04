@@ -7,6 +7,7 @@ public class BackToMain : MonoBehaviour
 {
     public string sceneToLoad;
     private GameData _gameData;
+    private GameObject _levelSelect;
     private Board _board;
 
     public void WinOK()
@@ -26,12 +27,6 @@ public class BackToMain : MonoBehaviour
     void Start()
     {
         _gameData = FindObjectOfType<GameData>();
-        _board = FindObjectOfType<Board>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _board = GameObject.FindWithTag("Board").GetComponent<Board>();
     }
 }

@@ -6,11 +6,6 @@ public class SoundManager : MonoBehaviour
 {
     //public AudioSource destroyNoise;
     public AudioSource[] _audioArray;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     public void PlayRandomDestroyNoise()
     {
         if (PlayerPrefs.HasKey("Sound"))
@@ -24,10 +19,5 @@ public class SoundManager : MonoBehaviour
         {
             _audioArray[0].Play();
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -7,19 +7,12 @@ using UnityEngine.EventSystems;
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private AudioSource _clickSound;
-    void Start()
-    {
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void LevelSelectMenu(GameObject levelPanel)
     {
         _clickSound.Play();
+        //PlayerPrefs.SetInt("LevelSelect", 1);
         levelPanel.SetActive(true);
+        
     }
     public void BackToStartMenu(GameObject levelPanel)
     {

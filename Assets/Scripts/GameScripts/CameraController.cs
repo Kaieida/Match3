@@ -28,13 +28,6 @@ public class CameraController : MonoBehaviour
         else
         {
             Camera.main.orthographicSize = _board.Height / 2 + padding;
-        }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }    
     }
 }

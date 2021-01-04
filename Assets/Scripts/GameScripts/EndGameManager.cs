@@ -31,7 +31,7 @@ public class EndGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _board = FindObjectOfType<Board>();
+        _board = GameObject.FindWithTag("Board").GetComponent<Board>();
         SetGameType();
         SetupGame();  
     }
@@ -49,7 +49,6 @@ public class EndGameManager : MonoBehaviour
             }
         }
     }
-
     private void SetupGame()
     {
         currentCounterValue = requirements.counterValue;
@@ -88,10 +87,10 @@ public class EndGameManager : MonoBehaviour
         GameData _gameData = FindObjectOfType<GameData>();
         for(int i = 0; i < _gameData._saveData.stars[_board.level]; i++)
         {
-            Debug.Log(i);
             starArray[i].GetComponent<Image>().enabled = true;
         }
         fade.GameOver();
+        PlayerPrefs.SetInt("levelPanel", 1);
     }
     public void LoseGame()
     {
@@ -101,6 +100,7 @@ public class EndGameManager : MonoBehaviour
         counter.text = "" + currentCounterValue;
         FadePanelController fade = FindObjectOfType<FadePanelController>();
         fade.GameOver();
+        PlayerPrefs.SetInt("levelPanel", 1);
     }
 
     private void Update()

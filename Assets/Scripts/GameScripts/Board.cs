@@ -218,12 +218,9 @@ public class Board : MonoBehaviour
 
 
                     Vector2 _tempPosition = new Vector2(i, h + OffSet);
-                    Vector2 tilePosition = new Vector2(i, h);//if spawning of jellys are wrong, add this instead of tempposition.
-                    /*GameObject backgroundTile = Instantiate(tilePrefab, _tempPosition, Quaternion.identity) as GameObject;
-                    backgroundTile.transform.parent = this.transform;
-                    backgroundTile.name = "( " + i + ", " + h + " )";*/
+                    //Vector2 tilePosition = new Vector2(i, h);
                     int dotToUse = Random.Range(0, Dots.Length);
-                    dotToUse = Random.Range(0, Dots.Length);
+                    //dotToUse = Random.Range(0, Dots.Length);
                     int maxIterations = 0;
                     while (MatchesAt(i, h, Dots[dotToUse]) && maxIterations < 100)
                     {
@@ -248,14 +245,22 @@ public class Board : MonoBehaviour
         {
             if (AllDots[column - 1, row] != null && AllDots[column - 2, row] != null)
             {
-                if (AllDots[column - 1, row].tag == piece.tag && AllDots[column - 2, row].tag == piece.tag)
+                /*if (AllDots[column - 1, row].tag == piece.tag && AllDots[column - 2, row].tag == piece.tag)
                 {
                     return true;
-                }
+                }*/
+                if (AllDots[column - 1, row].CompareTag(piece.tag) && AllDots[column - 2, row].CompareTag(piece.tag))
+                {
+                    return true;
+                } 
             }
             if (AllDots[column, row - 1] != null && AllDots[column, row - 2] != null)
             {
-                if (AllDots[column, row - 1].tag == piece.tag && AllDots[column, row - 2].tag == piece.tag)
+                /*if (AllDots[column, row - 1].tag == piece.tag && AllDots[column, row - 2].tag == piece.tag)
+                {
+                    return true;
+                }*/
+                if (AllDots[column, row-1].CompareTag(piece.tag) && AllDots[column, row-2].CompareTag(piece.tag))
                 {
                     return true;
                 }
@@ -267,7 +272,11 @@ public class Board : MonoBehaviour
             {
                 if (AllDots[column, row - 1] != null && AllDots[column, row - 2] != null)
                 {
-                    if (AllDots[column, row - 1].tag == piece.tag && AllDots[column, row - 2].tag == piece.tag)
+                    /*if (AllDots[column, row - 1].tag == piece.tag && AllDots[column, row - 2].tag == piece.tag)
+                    {
+                        return true;
+                    }*/
+                    if (AllDots[column, row - 1].CompareTag(piece.tag) && AllDots[column, row - 2].CompareTag(piece.tag))
                     {
                         return true;
                     }
@@ -278,7 +287,11 @@ public class Board : MonoBehaviour
             {
                 if (AllDots[column - 1, row] != null && AllDots[column - 2, row] != null)
                 {
-                    if (AllDots[column - 1, row].tag == piece.tag && AllDots[column - 2, row].tag == piece.tag)
+                    /*if (AllDots[column - 1, row].tag == piece.tag && AllDots[column - 2, row].tag == piece.tag)
+                    {
+                        return true;
+                    }*/
+                    if (AllDots[column - 1, row].CompareTag(piece.tag) && AllDots[column - 2, row].CompareTag(piece.tag))
                     {
                         return true;
                     }
@@ -308,11 +321,19 @@ public class Board : MonoBehaviour
                 {
                     continue;
                 }
-                if(nextDot.Column == thisDot.Column && nextDot.tag == color)
+                /*if(nextDot.Column == thisDot.Column && nextDot.tag == color)
+                {
+                    columnMatch++;
+                }*/
+                if (nextDot.Column == thisDot.Column && nextDot.CompareTag(color))
                 {
                     columnMatch++;
                 }
-                if (nextDot.Row == thisDot.Row && nextDot.tag == color)
+                /*if (nextDot.Row == thisDot.Row && nextDot.tag == color)
+                {
+                    rowMatch++;
+                }*/
+                if (nextDot.Row == thisDot.Row && nextDot.CompareTag(color))
                 {
                     rowMatch++;
                 }
@@ -348,7 +369,12 @@ public class Board : MonoBehaviour
             MatchType typeOfMatch = ColumnOrRow();
             if (typeOfMatch.type == 1)
             {
-                if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
+                /*if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
+                {
+                    CurrentDot.IsMatched = false;
+                    CurrentDot.MakeColorBomb();
+                }*/
+                if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.CompareTag(typeOfMatch.color))
                 {
                     CurrentDot.IsMatched = false;
                     CurrentDot.MakeColorBomb();
@@ -358,7 +384,12 @@ public class Board : MonoBehaviour
                     if (CurrentDot.OtherDot != null)
                     {
                         Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                        if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
+                        /*if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
+                        {
+                            otherDot.IsMatched = false;
+                            otherDot.MakeColorBomb();
+                        }*/
+                        if (otherDot.IsMatched && otherDot.CompareTag(typeOfMatch.color))
                         {
                             otherDot.IsMatched = false;
                             otherDot.MakeColorBomb();
@@ -368,7 +399,12 @@ public class Board : MonoBehaviour
             }
             else if (typeOfMatch.type == 2)
             {
-                if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
+                /*if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
+                {
+                    CurrentDot.IsMatched = false;
+                    CurrentDot.MakeAdjacentBomb();
+                }*/
+                if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.IsMatched && CurrentDot.CompareTag(typeOfMatch.color))
                 {
                     CurrentDot.IsMatched = false;
                     CurrentDot.MakeAdjacentBomb();
@@ -376,7 +412,12 @@ public class Board : MonoBehaviour
                 else if (CurrentDot.OtherDot != null)
                 {
                     Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                    if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
+                    /*if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
+                    {
+                        otherDot.IsMatched = false;
+                        otherDot.MakeAdjacentBomb();
+                    }*/
+                    if (otherDot.IsMatched && otherDot.CompareTag(typeOfMatch.color))
                     {
                         otherDot.IsMatched = false;
                         otherDot.MakeAdjacentBomb();
@@ -391,7 +432,7 @@ public class Board : MonoBehaviour
     }
     public void BombRow(int row)
     {
-        /*for (int i = 0; i < Width; i++)
+        for (int i = 0; i < Width; i++)
         {
             if (_concreteTiles[i, row])
             {
@@ -401,11 +442,11 @@ public class Board : MonoBehaviour
                     _concreteTiles[i, row] = null;
                 }
             }
-        }*/
+        }
     }
     public void BombColumn(int column)
     {
-        /*for (int i = 0; i < Width; i++)
+        for (int i = 0; i < Width; i++)
         {
             if (_concreteTiles[column, i])
             {
@@ -415,7 +456,7 @@ public class Board : MonoBehaviour
                     _concreteTiles[column, i] = null;
                 }
             }
-        }*/
+        }
     }
     private void DestroyMatchesAt(int column, int row)
     {
@@ -448,10 +489,7 @@ public class Board : MonoBehaviour
             {
                 _soundManager.PlayRandomDestroyNoise();
             }
-            /*GameObject particle = Instantiate(DestroyEffect, AllDots[column, row].transform.position, Quaternion.identity);
-            Destroy(particle, 0.5f);*/
             AllDots[column, row].GetComponent<Dot>().StartAnimation();
-            //Destroy(AllDots[column, row]);
             if (currentState != GameState.win || currentState != GameState.lose)
             {
                 _scoreManager.IncreaseScore(basePieceValue * streakValue);
@@ -577,7 +615,7 @@ public class Board : MonoBehaviour
         }
         StartCoroutine(DecreaseRowTwo());
     }
-    public IEnumerator test()
+    /*public IEnumerator test()
     {
         yield return new WaitForSeconds(5f);
         if (_findMatches.CurrentMatches.Count >= 4)
@@ -596,7 +634,7 @@ public class Board : MonoBehaviour
             }
         }
         StartCoroutine(DecreaseRowTwo());
-    }
+    }*/
 
     private IEnumerator DecreaseRowTwo()
     {
@@ -778,7 +816,11 @@ public class Board : MonoBehaviour
                     {
                         if (AllDots[i + 1, h] != null && AllDots[i + 2, h] != null)
                         {
-                            if (AllDots[i + 1, h].tag == AllDots[i, h].tag && AllDots[i + 2, h].tag == AllDots[i, h].tag)
+                            /*if (AllDots[i + 1, h].tag == AllDots[i, h].tag && AllDots[i + 2, h].tag == AllDots[i, h].tag)
+                            {
+                                return true;
+                            }*/
+                            if (AllDots[i + 1, h].CompareTag(AllDots[i, h].tag) && AllDots[i + 2, h].CompareTag(AllDots[i, h].tag))
                             {
                                 return true;
                             }
@@ -788,7 +830,11 @@ public class Board : MonoBehaviour
                     {
                         if (AllDots[i, h + 1] != null && AllDots[i, h + 2] != null)
                         {
-                            if (AllDots[i, h + 1].tag == AllDots[i, h].tag && AllDots[i, h + 2].tag == AllDots[i, h].tag)
+                            /*if (AllDots[i, h + 1].tag == AllDots[i, h].tag && AllDots[i, h + 2].tag == AllDots[i, h].tag)
+                            {
+                                return true;
+                            }*/
+                            if (AllDots[i, h + 1].CompareTag(AllDots[i, h].tag) && AllDots[i, h + 2].CompareTag(AllDots[i, h].tag))
                             {
                                 return true;
                             }

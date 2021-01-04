@@ -52,10 +52,6 @@ public class ConfirmPanel : MonoBehaviour
         cloudLevel.text = "Level " + level;
     }
     // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void Cancel()
     {
         _audioSource.Play();
@@ -65,7 +61,6 @@ public class ConfirmPanel : MonoBehaviour
     {
         _audioSource.Play();
         PlayerPrefs.SetInt("Current Level", level - 1);
-        Debug.Log(levelToLoad);
         SceneManager.LoadScene(levelToLoad);
     }
 }

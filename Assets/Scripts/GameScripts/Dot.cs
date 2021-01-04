@@ -5,14 +5,14 @@ using UnityEngine.EventSystems;
 using Lean.Touch;
 using UnityEngine.Events;
 
-public class SwipeEvent : UnityEvent<Vector2>
+/*public class SwipeEvent : UnityEvent<Vector2>
 {
 
-}
+}*/
 
 public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    private static SwipeEvent _swipeEvent = new SwipeEvent();
+    //private static SwipeEvent _swipeEvent = new SwipeEvent();
     [Header("Board Varibales")]
     public int Column;
     public int Row;
@@ -46,33 +46,33 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public Sprite rowSprite;
     public Sprite columnSprite;
     public Sprite colorSprite;
-    public bool flag;
+    //public bool flag;
     void Start()
     {
         IsColumnBomb = false;
         IsRowBomb = false;
         IsColorBomb = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        _endGameManager = FindObjectOfType<EndGameManager>();
-        _hintManager = FindObjectOfType<HintManager>();
+        //_endGameManager = FindObjectOfType<EndGameManager>();
+        _endGameManager = GameObject.Find("EndGameManager").GetComponent<EndGameManager>();
+        //_hintManager = FindObjectOfType<HintManager>();
+        _hintManager = GameObject.FindWithTag("Board").GetComponent<HintManager>();
         _board = GameObject.FindWithTag("Board").GetComponent<Board>();
-        _findMatches = FindObjectOfType<FindMatches>();
+        //_findMatches = FindObjectOfType<FindMatches>();
+        _findMatches = GameObject.Find("Match Finder").GetComponent<FindMatches>();
     }
-    private void LateUpdate()
+    /*private void LateUpdate()
     {
         if(flag)
         _spriteRenderer.sprite = colorSprite;
-    }
-    private void OnMouseOver()
+    }*/
+    /*private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(1))
         {
             IsAdjacentBomb = true;
-            //GameObject marker = Instantiate(AdjacetMarker, transform.position, Quaternion.identity);
-            //marker.transform.parent = this.transform;
         }
-    }
+    }*/
     void Update()
     {
         TargetX = Column;
@@ -148,32 +148,9 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             }
         }
-        //LeanTouch.OnFingerSwipe -= CalculateAngle;
     }
-    private void CalculateAngle()//private void CalculateAngle(Vector2 f)
+    private void CalculateAngle()
     {
-        /*if (Mathf.Abs(f.x) > Mathf.Abs(f.y))
-        {
-            if (f.x > 0)
-            {
-                ActualMovePieces(Vector2.right);
-            }
-            else
-            {
-                ActualMovePieces(Vector2.left);
-            }
-        }
-        else
-        {
-            if (f.y > 0)
-            {
-                ActualMovePieces(Vector2.up);
-            }
-            else
-            {
-                ActualMovePieces(Vector2.down);
-            }
-        }*/
         if (Mathf.Abs(_finalTouchPosition.y - _firstTouchPosition.y) > SwipeResist || Mathf.Abs(_finalTouchPosition.x - _firstTouchPosition.x) > SwipeResist )
         {
             _board.currentState = GameState.wait;
@@ -242,52 +219,15 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
     public IEnumerator StartsAnimation()
     {
-        //_animator.SetBool("Destruction", true);
         _animator.enabled = true;
         yield return new WaitForSeconds(0.4f);
         Destroy(gameObject);
     }
-    /*private void FindMatches()
-    {
-        if (Column > 0 && Column < _board.Width - 1)
-        {
-            GameObject leftDot1 = _board.AllDots[Column - 1, Row];
-            GameObject rightDot1 = _board.AllDots[Column + 1, Row];
-            if (leftDot1 != null && rightDot1 != null)
-            {
-                if (leftDot1.tag == this.gameObject.tag && rightDot1.tag == this.gameObject.tag)
-                {
-                    leftDot1.GetComponent<Dot>().IsMatched = true;
-                    rightDot1.GetComponent<Dot>().IsMatched = true;
-                    IsMatched = true;
-                }
-            }
-           
-        }
-        if (Row > 0 && Row < _board.Height - 1)
-        {
-            GameObject upDot1 = _board.AllDots[Column, Row + 1];
-            GameObject downDot1 = _board.AllDots[Column, Row - 1];
-            if (upDot1 != null && downDot1 != null)
-            {
-                if (upDot1.tag == this.gameObject.tag && downDot1.tag == this.gameObject.tag)
-                {
-                    upDot1.GetComponent<Dot>().IsMatched = true;
-                    downDot1.GetComponent<Dot>().IsMatched = true;
-                    IsMatched = true;
-                }
-            }
-
-        }
-    }*/
     public void MakeRowBomb()
     {
         if (!IsColumnBomb && !IsColorBomb && !IsAdjacentBomb)
         {
             IsRowBomb = true;
-            Debug.Log("Making bomb");
-            /*GameObject arrow = Instantiate(RowArrow, transform.position, Quaternion.identity);
-            arrow.transform.parent = this.transform;*/
             _spriteRenderer.sprite = rowSprite;
         }
     }
@@ -352,10 +292,10 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             CalculateAngle();
         }
     }
-    public static void Swipe(LeanFinger finger)
+    /*public static void Swipe(LeanFinger finger)
     {
         Vector2 f = finger.SwipeScreenDelta.normalized;
         _swipeEvent.Invoke(f);
         
-    }
+    }*/
 }

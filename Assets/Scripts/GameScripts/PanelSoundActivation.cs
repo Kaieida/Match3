@@ -20,10 +20,4 @@ public class PanelSoundActivation : MonoBehaviour
             _soundManager.GetComponent<SoundManager>()._audioArray[1].Play();
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

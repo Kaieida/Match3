@@ -11,12 +11,7 @@ public class FindMatches : MonoBehaviour
     public List<GameObject> CurrentMatches = new List<GameObject>();
     void Start()
     {
-        _board = FindObjectOfType<Board>();
-    }
-
-    void Update()
-    {
-
+        _board = GameObject.FindWithTag("Board").GetComponent<Board>();
     }
     public void FindingAllMatches()
     {
@@ -113,7 +108,15 @@ public class FindMatches : MonoBehaviour
                         {
                             Dot leftDotDot = leftDot.GetComponent<Dot>();
                             Dot rightDotDot = rightDot.GetComponent<Dot>();
-                            if (leftDot.tag == currentDot.tag && rightDot.tag == currentDot.tag)
+                            /*if (leftDot.tag == currentDot.tag && rightDot.tag == currentDot.tag)
+                            {
+                                CurrentMatches.Union(IsRowBomb(leftDotDot, currentDotDot, rightDotDot));
+                                CurrentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
+                                CurrentMatches.Union(IsAdjacentBomb(leftDotDot, currentDotDot, rightDotDot));
+                                GetNearbyPieces(leftDot, currentDot, rightDot);
+                                //currentDot.GetComponent<Dot>().IsMatched = true;
+                            }*/
+                            if (leftDot.CompareTag(currentDot.tag) && rightDot.CompareTag(currentDot.tag))
                             {
                                 CurrentMatches.Union(IsRowBomb(leftDotDot, currentDotDot, rightDotDot));
                                 CurrentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
@@ -131,7 +134,14 @@ public class FindMatches : MonoBehaviour
                         {
                             Dot upDotDot = upDot.GetComponent<Dot>();
                             Dot downDotDot = downDot.GetComponent<Dot>();
-                            if (upDot.tag == currentDot.tag && downDot.tag == currentDot.tag)
+                            /*if (upDot.tag == currentDot.tag && downDot.tag == currentDot.tag)
+                            {
+                                CurrentMatches.Union(IsColumnBomb(upDotDot, currentDotDot, downDotDot));
+                                CurrentMatches.Union(IsRowBomb(upDotDot, currentDotDot, downDotDot));
+                                CurrentMatches.Union(IsAdjacentBomb(upDotDot, currentDotDot, downDotDot));
+                                GetNearbyPieces(upDot, currentDot, downDot);
+                            }*/
+                            if (upDot.CompareTag(currentDot.tag) && downDot.CompareTag(currentDot.tag))
                             {
                                 CurrentMatches.Union(IsColumnBomb(upDotDot, currentDotDot, downDotDot));
                                 CurrentMatches.Union(IsRowBomb(upDotDot, currentDotDot, downDotDot));
@@ -153,7 +163,11 @@ public class FindMatches : MonoBehaviour
             {
                 if (_board.AllDots[i, h] != null)
                 {
-                    if (_board.AllDots[i, h].tag == color)
+                    /*if (_board.AllDots[i, h].tag == color)
+                    {
+                        _board.AllDots[i, h].GetComponent<Dot>().IsMatched = true;
+                    }*/
+                    if (_board.AllDots[i, h].CompareTag(color))
                     {
                         _board.AllDots[i, h].GetComponent<Dot>().IsMatched = true;
                     }
@@ -219,14 +233,14 @@ public class FindMatches : MonoBehaviour
                 dot.IsMatched = true;
             }
         }
-        Debug.Log(_board.Width + " " + row);
         return dots;
     }
     public void CheckBombs(MatchType matchType)
     {
         if (_board.CurrentDot != null)
         {
-            if (_board.CurrentDot.IsMatched && _board.CurrentDot.tag == matchType.color)
+            //if (_board.CurrentDot.IsMatched && _board.CurrentDot.tag == matchType.color)
+            if (_board.CurrentDot.IsMatched && _board.CurrentDot.CompareTag(matchType.color))
             {
                 _board.CurrentDot.IsMatched = false;
                 if ((_board.CurrentDot.SwipeAngle > -45 && _board.CurrentDot.SwipeAngle <= 45) || (_board.CurrentDot.SwipeAngle < -135 || _board.CurrentDot.SwipeAngle >= 135))
@@ -241,7 +255,8 @@ public class FindMatches : MonoBehaviour
             else if (_board.CurrentDot.OtherDot != null)
             {
                 Dot otherDot = _board.CurrentDot.OtherDot.GetComponent<Dot>();
-                if (otherDot.IsMatched && otherDot.tag == matchType.color)
+                // if (otherDot.IsMatched && otherDot.tag == matchType.color)
+                if (otherDot.IsMatched && otherDot.CompareTag(matchType.color))
                 {
                     otherDot.IsMatched = false;
                     if ((_board.CurrentDot.SwipeAngle > -45 && _board.CurrentDot.SwipeAngle <= 45) || (_board.CurrentDot.SwipeAngle < -135 || _board.CurrentDot.SwipeAngle >= 135))

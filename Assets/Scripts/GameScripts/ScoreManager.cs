@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _board = FindObjectOfType<Board>();
+        _board = GameObject.FindWithTag("Board").GetComponent<Board>();
         _gameData = FindObjectOfType<GameData>();
         
     }

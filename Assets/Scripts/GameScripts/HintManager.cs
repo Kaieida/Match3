@@ -20,11 +20,14 @@ public class HintManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hintDelaySeconds -= Time.deltaTime;
-        if(hintDelaySeconds <= 0 && currentHint == null)
+        if (_board.currentState == GameState.move)
         {
-            MarkHint();
-            hintDelaySeconds = hintDelay;
+            hintDelaySeconds -= Time.deltaTime;
+            if (hintDelaySeconds <= 0 && currentHint == null)
+            {
+                MarkHint();
+                hintDelaySeconds = hintDelay;
+            }
         }
     }
     List<GameObject> FindAllMatches()
@@ -71,7 +74,7 @@ public class HintManager : MonoBehaviour
         GameObject move = PickOneRandomly();
         if(move != null)
         {
-            currentHint = Instantiate(hintParticle, move.transform.position, Quaternion.identity);
+            currentHint = Instantiate(hintParticle, move.transform.position+new Vector3(0,0.1f,0), Quaternion.identity);
         }
     }
     public void DestroyHint()

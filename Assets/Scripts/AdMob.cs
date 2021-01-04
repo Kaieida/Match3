@@ -22,10 +22,4 @@ public class AdMob : MonoBehaviour
         BannerAdGameObject banner = MobileAds.Instance.GetAd<BannerAdGameObject>("Banner Ad");
         banner.LoadAd();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

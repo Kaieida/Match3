@@ -31,10 +31,6 @@ public class GameData : MonoBehaviour
         }
         Load();
     }
-    public void Start()
-    {
-        
-    }
     public void Save()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -63,10 +59,11 @@ public class GameData : MonoBehaviour
             _saveData.isActive[0] = true;
         }
     }
-    /*private void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
-        Save();
-    }*/
+        //Save();
+        PlayerPrefs.SetInt("levelPanel", 0);
+    }
     /*public void OnDisable()
     {
         Save();
