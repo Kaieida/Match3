@@ -5,14 +5,8 @@ using UnityEngine.EventSystems;
 using Lean.Touch;
 using UnityEngine.Events;
 
-/*public class SwipeEvent : UnityEvent<Vector2>
-{
-
-}*/
-
 public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    //private static SwipeEvent _swipeEvent = new SwipeEvent();
     [Header("Board Varibales")]
     public int Column;
     public int Row;
@@ -53,26 +47,11 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         IsRowBomb = false;
         IsColorBomb = false;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        //_endGameManager = FindObjectOfType<EndGameManager>();
         _endGameManager = GameObject.Find("EndGameManager").GetComponent<EndGameManager>();
-        //_hintManager = FindObjectOfType<HintManager>();
         _hintManager = GameObject.FindWithTag("Board").GetComponent<HintManager>();
         _board = GameObject.FindWithTag("Board").GetComponent<Board>();
-        //_findMatches = FindObjectOfType<FindMatches>();
         _findMatches = GameObject.Find("Match Finder").GetComponent<FindMatches>();
     }
-    /*private void LateUpdate()
-    {
-        if(flag)
-        _spriteRenderer.sprite = colorSprite;
-    }*/
-    /*private void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            IsAdjacentBomb = true;
-        }
-    }*/
     void Update()
     {
         TargetX = Column;
@@ -93,7 +72,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             transform.position = temPosition;
             
         }
-
         if (Mathf.Abs(TargetY - transform.position.y) > 0.1f)
         {
             temPosition = new Vector2(transform.position.x, TargetY);
@@ -145,7 +123,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     }
                 }
                 _board.DestroyMatches();
-
             }
         }
     }
@@ -188,7 +165,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             _board.currentState = GameState.move;
         }
     }
-
     void MovePieces()
     {
         if (SwipeAngle > -45 && SwipeAngle <= 45 && Column < _board.Width - 1)
@@ -211,7 +187,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             _board.currentState = GameState.move;
         }
-        
     }
     public void StartAnimation()
     {
@@ -220,7 +195,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public IEnumerator StartsAnimation()
     {
         _animator.enabled = true;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.35f);
         Destroy(gameObject);
     }
     public void MakeRowBomb()
@@ -236,9 +211,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!IsRowBomb && !IsColorBomb && !IsAdjacentBomb)
         {
             IsColumnBomb = true;
-            Debug.Log("Making bomb");
-            /*GameObject arrow = Instantiate(ColumnArrow, transform.position, Quaternion.identity);
-            arrow.transform.parent = this.transform;*/
             _spriteRenderer.sprite = columnSprite;
         }
     }
@@ -247,9 +219,6 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!IsColumnBomb && !IsRowBomb && !IsAdjacentBomb)
         {
             IsColorBomb = true;
-            /*GameObject color = Instantiate(ColorBomb, transform.position, Quaternion.identity);
-            color.transform.parent = this.transform;*/
-            Debug.Log("Making bomb");
             _spriteRenderer.sprite = colorSprite;
             this.gameObject.tag = "Color";
         }
@@ -259,19 +228,12 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!IsColumnBomb && !IsColorBomb && !IsRowBomb)
         {
             IsAdjacentBomb = true;
-            Debug.Log("Making bomb");
-            /*GameObject marker = Instantiate(AdjacetMarker, transform.position, Quaternion.identity);
-            marker.transform.parent = this.transform;*/
             _spriteRenderer.sprite = adjacentSprite;
             
         }
     }
-
     public void OnPointerDown(PointerEventData eventData)
     {
-        /*_swipeEvent.RemoveAllListeners();
-        _swipeEvent.AddListener(CalculateAngle);*/
-        
         if (_hintManager != null)
         {
             _hintManager.DestroyHint();
@@ -282,20 +244,12 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             _firstTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
-
     public void OnPointerUp(PointerEventData eventData)
     {
-        //LeanTouch.OnFingerSwipe -= CalculateAngle;
         if (_board.currentState == GameState.move)
         {
             _finalTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             CalculateAngle();
         }
     }
-    /*public static void Swipe(LeanFinger finger)
-    {
-        Vector2 f = finger.SwipeScreenDelta.normalized;
-        _swipeEvent.Invoke(f);
-        
-    }*/
 }

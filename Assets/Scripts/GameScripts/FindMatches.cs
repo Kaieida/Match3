@@ -8,6 +8,7 @@ public class FindMatches : MonoBehaviour
     private Board _board;
     [SerializeField] private GameObject _verticalPaw;
     [SerializeField] private GameObject _horizontalPaw;
+    [SerializeField] private GameObject _bombAnimation;
     public List<GameObject> CurrentMatches = new List<GameObject>();
     void Start()
     {
@@ -108,21 +109,12 @@ public class FindMatches : MonoBehaviour
                         {
                             Dot leftDotDot = leftDot.GetComponent<Dot>();
                             Dot rightDotDot = rightDot.GetComponent<Dot>();
-                            /*if (leftDot.tag == currentDot.tag && rightDot.tag == currentDot.tag)
-                            {
-                                CurrentMatches.Union(IsRowBomb(leftDotDot, currentDotDot, rightDotDot));
-                                CurrentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
-                                CurrentMatches.Union(IsAdjacentBomb(leftDotDot, currentDotDot, rightDotDot));
-                                GetNearbyPieces(leftDot, currentDot, rightDot);
-                                //currentDot.GetComponent<Dot>().IsMatched = true;
-                            }*/
                             if (leftDot.CompareTag(currentDot.tag) && rightDot.CompareTag(currentDot.tag))
                             {
                                 CurrentMatches.Union(IsRowBomb(leftDotDot, currentDotDot, rightDotDot));
                                 CurrentMatches.Union(IsColumnBomb(leftDotDot, currentDotDot, rightDotDot));
                                 CurrentMatches.Union(IsAdjacentBomb(leftDotDot, currentDotDot, rightDotDot));
                                 GetNearbyPieces(leftDot, currentDot, rightDot);
-                                //currentDot.GetComponent<Dot>().IsMatched = true;
                             }
                         }
                     }
@@ -134,13 +126,6 @@ public class FindMatches : MonoBehaviour
                         {
                             Dot upDotDot = upDot.GetComponent<Dot>();
                             Dot downDotDot = downDot.GetComponent<Dot>();
-                            /*if (upDot.tag == currentDot.tag && downDot.tag == currentDot.tag)
-                            {
-                                CurrentMatches.Union(IsColumnBomb(upDotDot, currentDotDot, downDotDot));
-                                CurrentMatches.Union(IsRowBomb(upDotDot, currentDotDot, downDotDot));
-                                CurrentMatches.Union(IsAdjacentBomb(upDotDot, currentDotDot, downDotDot));
-                                GetNearbyPieces(upDot, currentDot, downDot);
-                            }*/
                             if (upDot.CompareTag(currentDot.tag) && downDot.CompareTag(currentDot.tag))
                             {
                                 CurrentMatches.Union(IsColumnBomb(upDotDot, currentDotDot, downDotDot));
@@ -163,10 +148,6 @@ public class FindMatches : MonoBehaviour
             {
                 if (_board.AllDots[i, h] != null)
                 {
-                    /*if (_board.AllDots[i, h].tag == color)
-                    {
-                        _board.AllDots[i, h].GetComponent<Dot>().IsMatched = true;
-                    }*/
                     if (_board.AllDots[i, h].CompareTag(color))
                     {
                         _board.AllDots[i, h].GetComponent<Dot>().IsMatched = true;
@@ -178,6 +159,7 @@ public class FindMatches : MonoBehaviour
     private List<GameObject> GetAdjacentPieces(int column, int row)
     {
         List<GameObject> dots = new List<GameObject>();
+        Instantiate(_bombAnimation, new Vector2(column, row), Quaternion.identity);
         for (int i = column - 1; i <= column + 1; i++)
         {
             for (int h = row - 1; h <= row + 1; h++)
@@ -197,7 +179,6 @@ public class FindMatches : MonoBehaviour
     private List<GameObject> GetColumnPieces(int column)
     {
         List<GameObject> dots = new List<GameObject>();
-        //Transform spawnPosition = new Vector3(column, _board.Height - 1, 0);
         Instantiate(_verticalPaw, new Vector3(column, _board.Height - 1, 0), Quaternion.identity);
         for (int i = 0; i < _board.Height; i++)
         {
@@ -219,7 +200,6 @@ public class FindMatches : MonoBehaviour
     {
         List<GameObject> dots = new List<GameObject>();
         Instantiate(_horizontalPaw, new Vector3(_board.Width-1, row, 0), Quaternion.Euler(0,0,-90));
-        //paw.transform.parent = _board.transform;
         for (int i = 0; i < _board.Width; i++)
         {
             if (_board.AllDots[i, row] != null)
@@ -239,7 +219,6 @@ public class FindMatches : MonoBehaviour
     {
         if (_board.CurrentDot != null)
         {
-            //if (_board.CurrentDot.IsMatched && _board.CurrentDot.tag == matchType.color)
             if (_board.CurrentDot.IsMatched && _board.CurrentDot.CompareTag(matchType.color))
             {
                 _board.CurrentDot.IsMatched = false;
@@ -255,7 +234,6 @@ public class FindMatches : MonoBehaviour
             else if (_board.CurrentDot.OtherDot != null)
             {
                 Dot otherDot = _board.CurrentDot.OtherDot.GetComponent<Dot>();
-                // if (otherDot.IsMatched && otherDot.tag == matchType.color)
                 if (otherDot.IsMatched && otherDot.CompareTag(matchType.color))
                 {
                     otherDot.IsMatched = false;

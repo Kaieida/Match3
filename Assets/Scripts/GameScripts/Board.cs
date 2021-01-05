@@ -37,8 +37,6 @@ public class TileType
 
 public class Board : MonoBehaviour
 {
-    
-
     [Header("Scriptable object stuff")]
     public World world;
     public int level;
@@ -116,7 +114,6 @@ public class Board : MonoBehaviour
         AllDots = new GameObject[Width, Height];
         SetUp();
         currentState = GameState.pause;
-        //Lean.Touch.LeanTouch.OnFingerSwipe += Dot.Swipe;
     }
     private void GenerateBackgroundTiles()
     {
@@ -131,11 +128,7 @@ public class Board : MonoBehaviour
         }
         for (int i = 0; i < BoardLayout.Length; i++)
         {
-            //BoardLayout[i].x 
             Destroy(_backgroundTiles[BoardLayout[i].x, BoardLayout[i].y]);
-            /*Vector2 tempPos = new Vector2(BoardLayout[i].x, BoardLayout[i].y);
-            GameObject tile = Instantiate(_backgroundTile, tempPos, Quaternion.identity);
-            _backgroundTiles[BoardLayout[i].x, BoardLayout[i].y] = tile;*/
         }
 
     }
@@ -146,7 +139,6 @@ public class Board : MonoBehaviour
             if (BoardLayout[i].tileKind == TileKind.Blank)
             {
                 blankSpaces[BoardLayout[i].x, BoardLayout[i].y] = true;
-                //Destroy(_backgroundTiles[BoardLayout[i].x, BoardLayout[i].y]);
             }
         }
     }
@@ -215,12 +207,8 @@ public class Board : MonoBehaviour
             {
                 if (!blankSpaces[i, h] && !_concreteTiles[i,h] && !_slimeTiles[i,h])
                 {
-
-
                     Vector2 _tempPosition = new Vector2(i, h + OffSet);
-                    //Vector2 tilePosition = new Vector2(i, h);
                     int dotToUse = Random.Range(0, Dots.Length);
-                    //dotToUse = Random.Range(0, Dots.Length);
                     int maxIterations = 0;
                     while (MatchesAt(i, h, Dots[dotToUse]) && maxIterations < 100)
                     {
@@ -228,7 +216,6 @@ public class Board : MonoBehaviour
                         maxIterations++;
                     }
                     maxIterations = 0;
-
                     GameObject dot = Instantiate(Dots[dotToUse], _tempPosition, Quaternion.identity);
                     dot.GetComponent<Dot>().Row = h;
                     dot.GetComponent<Dot>().Column = i;
@@ -245,10 +232,6 @@ public class Board : MonoBehaviour
         {
             if (AllDots[column - 1, row] != null && AllDots[column - 2, row] != null)
             {
-                /*if (AllDots[column - 1, row].tag == piece.tag && AllDots[column - 2, row].tag == piece.tag)
-                {
-                    return true;
-                }*/
                 if (AllDots[column - 1, row].CompareTag(piece.tag) && AllDots[column - 2, row].CompareTag(piece.tag))
                 {
                     return true;
@@ -256,10 +239,6 @@ public class Board : MonoBehaviour
             }
             if (AllDots[column, row - 1] != null && AllDots[column, row - 2] != null)
             {
-                /*if (AllDots[column, row - 1].tag == piece.tag && AllDots[column, row - 2].tag == piece.tag)
-                {
-                    return true;
-                }*/
                 if (AllDots[column, row-1].CompareTag(piece.tag) && AllDots[column, row-2].CompareTag(piece.tag))
                 {
                     return true;
@@ -272,10 +251,6 @@ public class Board : MonoBehaviour
             {
                 if (AllDots[column, row - 1] != null && AllDots[column, row - 2] != null)
                 {
-                    /*if (AllDots[column, row - 1].tag == piece.tag && AllDots[column, row - 2].tag == piece.tag)
-                    {
-                        return true;
-                    }*/
                     if (AllDots[column, row - 1].CompareTag(piece.tag) && AllDots[column, row - 2].CompareTag(piece.tag))
                     {
                         return true;
@@ -287,10 +262,6 @@ public class Board : MonoBehaviour
             {
                 if (AllDots[column - 1, row] != null && AllDots[column - 2, row] != null)
                 {
-                    /*if (AllDots[column - 1, row].tag == piece.tag && AllDots[column - 2, row].tag == piece.tag)
-                    {
-                        return true;
-                    }*/
                     if (AllDots[column - 1, row].CompareTag(piece.tag) && AllDots[column - 2, row].CompareTag(piece.tag))
                     {
                         return true;
@@ -321,18 +292,10 @@ public class Board : MonoBehaviour
                 {
                     continue;
                 }
-                /*if(nextDot.Column == thisDot.Column && nextDot.tag == color)
-                {
-                    columnMatch++;
-                }*/
                 if (nextDot.Column == thisDot.Column && nextDot.CompareTag(color))
                 {
                     columnMatch++;
                 }
-                /*if (nextDot.Row == thisDot.Row && nextDot.tag == color)
-                {
-                    rowMatch++;
-                }*/
                 if (nextDot.Row == thisDot.Row && nextDot.CompareTag(color))
                 {
                     rowMatch++;
@@ -369,11 +332,6 @@ public class Board : MonoBehaviour
             MatchType typeOfMatch = ColumnOrRow();
             if (typeOfMatch.type == 1)
             {
-                /*if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
-                {
-                    CurrentDot.IsMatched = false;
-                    CurrentDot.MakeColorBomb();
-                }*/
                 if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.CompareTag(typeOfMatch.color))
                 {
                     CurrentDot.IsMatched = false;
@@ -384,11 +342,6 @@ public class Board : MonoBehaviour
                     if (CurrentDot.OtherDot != null)
                     {
                         Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                        /*if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
-                        {
-                            otherDot.IsMatched = false;
-                            otherDot.MakeColorBomb();
-                        }*/
                         if (otherDot.IsMatched && otherDot.CompareTag(typeOfMatch.color))
                         {
                             otherDot.IsMatched = false;
@@ -399,11 +352,6 @@ public class Board : MonoBehaviour
             }
             else if (typeOfMatch.type == 2)
             {
-                /*if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.IsMatched && CurrentDot.tag == typeOfMatch.color)
-                {
-                    CurrentDot.IsMatched = false;
-                    CurrentDot.MakeAdjacentBomb();
-                }*/
                 if (CurrentDot != null && CurrentDot.IsMatched && CurrentDot.IsMatched && CurrentDot.CompareTag(typeOfMatch.color))
                 {
                     CurrentDot.IsMatched = false;
@@ -412,11 +360,6 @@ public class Board : MonoBehaviour
                 else if (CurrentDot.OtherDot != null)
                 {
                     Dot otherDot = CurrentDot.OtherDot.GetComponent<Dot>();
-                    /*if (otherDot.IsMatched && otherDot.tag == typeOfMatch.color)
-                    {
-                        otherDot.IsMatched = false;
-                        otherDot.MakeAdjacentBomb();
-                    }*/
                     if (otherDot.IsMatched && otherDot.CompareTag(typeOfMatch.color))
                     {
                         otherDot.IsMatched = false;
@@ -451,7 +394,7 @@ public class Board : MonoBehaviour
             if (_concreteTiles[column, i])
             {
                 _concreteTiles[column, i].TakeDamage(1);
-                if (_concreteTiles[column, i].hitPoints <= 0)////Change h to i if errors
+                if (_concreteTiles[column, i].hitPoints <= 0)
                 {
                     _concreteTiles[column, i] = null;
                 }
@@ -615,30 +558,9 @@ public class Board : MonoBehaviour
         }
         StartCoroutine(DecreaseRowTwo());
     }
-    /*public IEnumerator test()
-    {
-        yield return new WaitForSeconds(5f);
-        if (_findMatches.CurrentMatches.Count >= 4)
-        {
-            CheckToMakeBombs();
-        }
-        _findMatches.CurrentMatches.Clear();
-        for (int i = 0; i < Width; i++)
-        {
-            for (int h = 0; h < Height; h++)
-            {
-                if (AllDots[i, h] != null)
-                {
-                    DestroyMatchesAt(i, h);
-                }
-            }
-        }
-        StartCoroutine(DecreaseRowTwo());
-    }*/
-
     private IEnumerator DecreaseRowTwo()
     {
-        yield return new WaitForSeconds(refillDelay);//IF SOMETHING BUGS OUT, try to delete this line of code.
+        yield return new WaitForSeconds(0.35f); //pause before candies falls after destroying matches.
         for (int i = 0; i < Width; i++)
         {
             for (int h = 0; h < Height; h++)
@@ -707,7 +629,7 @@ public class Board : MonoBehaviour
     }
     private IEnumerator FillBoard()
     {
-        yield return new WaitForSeconds(refillDelay);
+        yield return new WaitForSeconds(refillDelay*0.25f);
         RefillBoard();
         yield return new WaitForSeconds(refillDelay);
         while (MatchesOnBoard())
@@ -715,7 +637,6 @@ public class Board : MonoBehaviour
             streakValue++;
             DestroyMatches();
             yield break;
-            //yield return new WaitForSeconds(refillDelay * 2);
         }
         CurrentDot = null;
         CheckToMakeSlime();
@@ -816,10 +737,6 @@ public class Board : MonoBehaviour
                     {
                         if (AllDots[i + 1, h] != null && AllDots[i + 2, h] != null)
                         {
-                            /*if (AllDots[i + 1, h].tag == AllDots[i, h].tag && AllDots[i + 2, h].tag == AllDots[i, h].tag)
-                            {
-                                return true;
-                            }*/
                             if (AllDots[i + 1, h].CompareTag(AllDots[i, h].tag) && AllDots[i + 2, h].CompareTag(AllDots[i, h].tag))
                             {
                                 return true;
@@ -830,10 +747,6 @@ public class Board : MonoBehaviour
                     {
                         if (AllDots[i, h + 1] != null && AllDots[i, h + 2] != null)
                         {
-                            /*if (AllDots[i, h + 1].tag == AllDots[i, h].tag && AllDots[i, h + 2].tag == AllDots[i, h].tag)
-                            {
-                                return true;
-                            }*/
                             if (AllDots[i, h + 1].CompareTag(AllDots[i, h].tag) && AllDots[i, h + 2].CompareTag(AllDots[i, h].tag))
                             {
                                 return true;

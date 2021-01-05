@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PawDestruction : MonoBehaviour
 {
+    [SerializeField] private float _timeToDestroy;
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 3);
+        Destroy(gameObject, _timeToDestroy);
     }
 }

@@ -1411,7 +1411,7 @@ MonoBehaviour:
   currentState: 1
   Width: 10
   Height: 10
-  OffSet: 10
+  OffSet: 5
   tilePrefab: {fileID: 3653030625557451141, guid: bc8df089803bc0f4099e2573080a036c,
     type: 3}
   breakableTilePrefab: {fileID: 145447611917957037, guid: 163a4b11133cfc14abc7128f955b6b66,
@@ -1770,7 +1770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.20829219, y: 0.3488847}
   m_AnchorMax: {x: 0.20829219, y: 0.3488847}
-  m_AnchoredPosition: {x: -2.3000183, y: 1}
+  m_AnchoredPosition: {x: -2.2999878, y: 1}
   m_SizeDelta: {x: 189.30093, y: 46.470566}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &480675845
@@ -3422,6 +3422,8 @@ MonoBehaviour:
   _verticalPaw: {fileID: 5568381065627736286, guid: f434e33e4bdafed418f550b912815a51,
     type: 3}
   _horizontalPaw: {fileID: 5568381065627736286, guid: 603e97a8f23b55d4d9450cafe47255a0,
+    type: 3}
+  _bombAnimation: {fileID: 8469956620608096939, guid: e577fb16f9bc5784c96b0d396be75d70,
     type: 3}
   CurrentMatches: []
 --- !u!1 &1158931151
