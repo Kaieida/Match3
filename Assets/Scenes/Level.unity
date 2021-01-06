@@ -910,8 +910,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611807557}
-        m_MethodName: SoundButton
+      - m_Target: {fileID: 265128688}
+        m_MethodName: SoundButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1356,11 +1356,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d0274d84b61fa44a12d6c0bbc3692c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioArray:
+  pause: 0
+  _sounds:
   - {fileID: 490584918}
   - {fileID: 263122882}
   - {fileID: 1607082799}
   - {fileID: 1840307750}
+  - {fileID: 1158931153}
+  soundButton: {fileID: 247922591}
+  musicOn: {fileID: 21300000, guid: 9173f2d17436c7d4fb276ee3fc3f8b03, type: 3}
+  musicOff: {fileID: 21300000, guid: 97523d6d1da0c2b4a8e635b55c5ca842, type: 3}
 --- !u!1 &306606565
 GameObject:
   m_ObjectHideFlags: 0

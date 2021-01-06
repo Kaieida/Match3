@@ -430,7 +430,7 @@ public class Board : MonoBehaviour
             }
             if(_soundManager != null)
             {
-                _soundManager.PlayRandomDestroyNoise();
+                _soundManager._sounds[0].Play();
             }
             AllDots[column, row].GetComponent<Dot>().StartAnimation();
             if (currentState != GameState.win || currentState != GameState.lose)

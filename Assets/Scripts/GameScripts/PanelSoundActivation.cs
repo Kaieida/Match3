@@ -10,14 +10,14 @@ public class PanelSoundActivation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _soundManager.GetComponent<SoundManager>()._audioArray[3].Stop();
+        _soundManager.GetComponent<SoundManager>()._sounds[3].Stop();
         if (_win)
         {
-            _soundManager.GetComponent<SoundManager>()._audioArray[2].Play();
+            _soundManager.GetComponent<SoundManager>()._sounds[2].Play();
         }
         else
         {
-            _soundManager.GetComponent<SoundManager>()._audioArray[1].Play();
+            _soundManager.GetComponent<SoundManager>()._sounds[1].Play();
         }
     }
 }
