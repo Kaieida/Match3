@@ -84,7 +84,7 @@ public class GoalManager : MonoBehaviour
                 currentGoals[i].thisText.text = "" + levelGoals[i].numberCollected + "/" + levelGoals[i].numberNeeded;
             }
         }
-        if(goalsCompleted >= levelGoals.Length && _scoreManager.score >= _board.scoreGoals[2])
+        if(goalsCompleted >= levelGoals.Length && _scoreManager.score >= _board.scoreGoals[0])
         {
             if(_endGame != null)
             {

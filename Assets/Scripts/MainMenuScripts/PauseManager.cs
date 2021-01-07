@@ -12,12 +12,12 @@ public class PauseManager : MonoBehaviour
     public Button soundButton;
     public Sprite musicOn;
     public Sprite musicOff;
-    // Start is called before the first frame update
-    /*void Start()
+
+    void Start()
     {
          pausePanel.SetActive(false);
          _board = GameObject.FindWithTag("Board").GetComponent<Board>();
-         if (PlayerPrefs.HasKey("Sound"))
+        /* if (PlayerPrefs.HasKey("Sound"))
          {
              if(PlayerPrefs.GetInt("Sound") == 0)
              {
@@ -55,8 +55,8 @@ public class PauseManager : MonoBehaviour
          {
              soundButton.image.sprite = musicOn;
              PlayerPrefs.SetInt("Sound", 1);
-         }
-     }*/
+         }*/
+     }
     public void PauseGame()
     {
         pause = !pause;
