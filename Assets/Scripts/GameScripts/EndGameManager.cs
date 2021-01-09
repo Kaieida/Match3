@@ -27,6 +27,7 @@ public class EndGameManager : MonoBehaviour
     public Text counter;
     public int currentCounterValue;
     private float _timerSeconds;
+    [SerializeField] private ScoreManager _scoreManager;
     private Board _board;
     // Start is called before the first frame update
     void Start()
@@ -89,6 +90,7 @@ public class EndGameManager : MonoBehaviour
         {
             starArray[i].GetComponent<Image>().enabled = true;
         }
+        _scoreManager.WinScoreUpdate();
         fade.GameOver();
         PlayerPrefs.SetInt("levelPanel", 1);
     }

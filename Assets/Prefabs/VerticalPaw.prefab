@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeToDestroy: 3
+  _soundInt: 5
 --- !u!1001 &6800887253352395980
 PrefabInstance:
   m_ObjectHideFlags: 0

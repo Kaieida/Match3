@@ -31,7 +31,7 @@ public class ScoreManager : MonoBehaviour
     public void IncreaseScore(int amountToIncrease)
     {
         score += amountToIncrease;
-        for(int i = 0; i < _board.scoreGoals.Length; i++)
+        /*for(int i = 0; i < _board.scoreGoals.Length; i++)
         {
             if(score > _board.scoreGoals[i] && numberStars < i + 1)
             {
@@ -51,8 +51,32 @@ public class ScoreManager : MonoBehaviour
                 _gameData._saveData.stars[_board.level] = numberStars;
             }
             //_gameData.Save();
-        }
+        }*/
         UpdateBar();
+    }
+    public void WinScoreUpdate()
+    {
+        for (int i = 0; i < _board.scoreGoals.Length; i++)
+        {
+            if (score > _board.scoreGoals[i] && numberStars < i + 1)
+            {
+                numberStars++;
+            }
+        }
+        if (_gameData != null)
+        {
+            int highScore = _gameData._saveData.highScores[_board.level];
+            if (score > highScore)
+            {
+                _gameData._saveData.highScores[_board.level] = score;
+            }
+            int currentStars = _gameData._saveData.stars[_board.level];
+            if (numberStars > currentStars)
+            {
+                _gameData._saveData.stars[_board.level] = numberStars;
+            }
+            //_gameData.Save();
+        }
     }
     private void UpdateBar()
     {
