@@ -45,5 +45,5 @@ MonoBehaviour:
     matchValue: Green
   - numberNeeded: 15
     numberCollected: 18
-    goalSprite: {fileID: 21300000, guid: 4b0e668a934f92942a735db2c6387234, type: 3}
-    matchValue: Purple
+    goalSprite: {fileID: 21300000, guid: 5d12ab66ddab0d844a8102f43859f01e, type: 3}
+    matchValue: Red

@@ -17,6 +17,8 @@ public class GoalManager : MonoBehaviour
     public List<GoalPanel> currentGoals = new List<GoalPanel>();
     public GameObject goalPrefab;
     public GameObject goalIntParent;
+    [SerializeField] private GameObject _goalPrefabBoard;
+    [SerializeField] private GameObject _smallGoalPrefab;
     //public GameObject goalGameParent;//uncomment if broken
     private EndGameManager _endGame;
     private Board _board;
@@ -63,9 +65,9 @@ public class GoalManager : MonoBehaviour
             panel.thisString = "0/"+levelGoals[i].numberNeeded;
 
 
-            //GameObject gameGoal = Instantiate(goalPrefab, goalGameParent.transform.position, Quaternion.identity);//uncomment if broken
-            //gameGoal.transform.SetParent(goalGameParent.transform);//uncomment if broken
-            //panel = gameGoal.GetComponent<GoalPanel>();//uncomment if broken
+            GameObject gameGoal = Instantiate(_smallGoalPrefab, _goalPrefabBoard.transform.position, Quaternion.identity);//uncomment if broken
+            gameGoal.transform.SetParent(_goalPrefabBoard.transform);//uncomment if broken
+            panel = gameGoal.GetComponent<GoalPanel>();//uncomment if broken
             currentGoals.Add(panel);
             panel.thisSprite = levelGoals[i].goalSprite;
             panel.thisString = "0/" + levelGoals[i].numberNeeded;

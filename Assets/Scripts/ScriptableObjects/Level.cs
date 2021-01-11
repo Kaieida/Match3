@@ -21,4 +21,7 @@ public class Level : ScriptableObject
     [Header("End game requirements")]
     public EndGameReq endGameReq;
     public BlankGoal[] levelGoals;
+
+    [Header("Camera pading")]
+    public float pading = 3.5f;
 }

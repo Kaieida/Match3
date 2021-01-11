@@ -77,6 +77,7 @@ public class Board : MonoBehaviour
     private MatchType _matchType = new MatchType();
     private ScoreManager _scoreManager;
     private bool makeSlime = false;
+    [SerializeField] private GameObject _mainCamera;
 
     private void Awake()
     {
@@ -95,6 +96,7 @@ public class Board : MonoBehaviour
                     Dots = world.levels[level].dots;
                     scoreGoals = world.levels[level].scoreGoals;
                     BoardLayout = world.levels[level].boardLayout;
+                    _mainCamera.GetComponent<CameraController>().padding = world.levels[level].pading;
                 }
             }
         }
