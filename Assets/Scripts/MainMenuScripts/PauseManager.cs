@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class PauseManager : MonoBehaviour
 {
     public GameObject pausePanel;
+    [SerializeField] private Transform _pauseTransform;
+    [SerializeField] private Transform _bolvan4ik;
     private Board _board;
     public bool pause = false;
     public Button soundButton;
@@ -17,45 +20,8 @@ public class PauseManager : MonoBehaviour
     {
          pausePanel.SetActive(false);
          _board = GameObject.FindWithTag("Board").GetComponent<Board>();
-        /* if (PlayerPrefs.HasKey("Sound"))
-         {
-             if(PlayerPrefs.GetInt("Sound") == 0)
-             {
-                 soundButton.image.sprite = musicOn;
-                 PlayerPrefs.SetInt("Sound", 1);
-             }
-             else
-             {
-                 soundButton.image.sprite = musicOff;
-                 PlayerPrefs.SetInt("Sound", 0);
-             }
-         }
-         else
-         {
-             soundButton.image.sprite = musicOn;
-             PlayerPrefs.SetInt("Sound", 1);
-         }
-     }
-     public void SoundButton()
-     {
-         if (PlayerPrefs.HasKey("Sound"))
-         {
-             if (PlayerPrefs.GetInt("Sound") == 0)
-             {
-                 soundButton.image.sprite = musicOn;
-                 PlayerPrefs.SetInt("Sound", 1);
-             }
-             else
-             {
-                 soundButton.image.sprite = musicOff;
-                 PlayerPrefs.SetInt("Sound", 0);
-             }
-         }
-         else
-         {
-             soundButton.image.sprite = musicOn;
-             PlayerPrefs.SetInt("Sound", 1);
-         }*/
+        _pauseTransform.DOMove(_bolvan4ik.position, 2f);
+
      }
     public void PauseGame()
     {
@@ -66,11 +32,13 @@ public class PauseManager : MonoBehaviour
     {
         if (pause && !pausePanel.activeInHierarchy)
         {
+            Debug.Log("Kappa1");
             pausePanel.SetActive(true);
             _board.currentState = GameState.pause;
         }
         if (!pause && pausePanel.activeInHierarchy)
         {
+            Debug.Log("Kappa2");
             pausePanel.SetActive(false);
             _board.currentState = GameState.move;
         }

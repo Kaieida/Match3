@@ -54,6 +54,10 @@ public class ConfirmPanel : MonoBehaviour
     // Update is called once per frame
     public void Cancel()
     {
+        for(int i = 0; i< _starsActive; i++)
+        {
+            stars[i].enabled = false;
+        }
         _audioSource.Play();
         this.gameObject.SetActive(false);
     }

@@ -924,10 +924,10 @@ RectTransform:
   m_Father: {fileID: 1951352051}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -182.4, y: 18.1}
-  m_SizeDelta: {x: 200.67255, y: 49.755127}
+  m_AnchorMin: {x: 0.2146461, y: 0.7208693}
+  m_AnchorMax: {x: 0.2146461, y: 0.7208693}
+  m_AnchoredPosition: {x: -0.4000244, y: -0.8999996}
+  m_SizeDelta: {x: 134.74017, y: 49.755127}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &250073872
 CanvasRenderer:
@@ -1641,10 +1641,10 @@ RectTransform:
   m_Father: {fileID: 1951352051}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.20829219, y: 0.3488847}
-  m_AnchorMax: {x: 0.20829219, y: 0.3488847}
-  m_AnchoredPosition: {x: -2.2999878, y: 1}
-  m_SizeDelta: {x: 189.30093, y: 46.470566}
+  m_AnchorMin: {x: 0.23635392, y: 0.36050776}
+  m_AnchorMax: {x: 0.23635392, y: 0.36050776}
+  m_AnchoredPosition: {x: -10.699951, y: 0}
+  m_SizeDelta: {x: 173.33368, y: 46.470566}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &480675845
 MonoBehaviour:
@@ -2426,6 +2426,7 @@ RectTransform:
   - {fileID: 1309137547}
   - {fileID: 1115837380}
   - {fileID: 1148520814}
+  - {fileID: 1412600112}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2478,6 +2479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausePanel: {fileID: 629436848}
+  _pauseTransform: {fileID: 629436849}
+  _bolvan4ik: {fileID: 1412600112}
   pause: 0
   soundButton: {fileID: 247922591}
   musicOn: {fileID: 21300000, guid: 9173f2d17436c7d4fb276ee3fc3f8b03, type: 3}
@@ -2529,7 +2532,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 629436848}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6aa3527326552ad4dbcaa01baf520e7f, type: 2}
   m_CullingMode: 0
@@ -4072,6 +4075,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _soundManager: {fileID: 265128686}
   _win: 0
+--- !u!1 &1412600111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412600112}
+  m_Layer: 0
+  m_Name: bolvan4ik
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1412600112
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412600111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 580979515}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1436643976
 GameObject:
   m_ObjectHideFlags: 0
