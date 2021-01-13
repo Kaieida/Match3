@@ -59,7 +59,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if(Mathf.Abs(TargetX - transform.position.x) > 0.1f)
         {
             temPosition = new Vector2(TargetX, transform.position.y);
-            transform.position = Vector2.Lerp(transform.position, temPosition, 0.1f);
+            transform.position = Vector2.Lerp(transform.position, temPosition, 0.2f);
             if(_board.AllDots[Column,Row] != this.gameObject)
             {
                 _board.AllDots[Column, Row] = this.gameObject;
@@ -75,7 +75,7 @@ public class Dot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (Mathf.Abs(TargetY - transform.position.y) > 0.1f)
         {
             temPosition = new Vector2(transform.position.x, TargetY);
-            transform.position = Vector2.Lerp(transform.position, temPosition, 0.1f);
+            transform.position = Vector2.Lerp(transform.position, temPosition, 0.2f);
             if (_board.AllDots[Column, Row] != this.gameObject)
             {
                 _board.AllDots[Column, Row] = this.gameObject;

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2545f37fd84da364ea1422834ac2771b, type: 3}
   m_Name: Level 3
   m_EditorClassIdentifier: 
-  width: 5
-  height: 6
+  width: 6
+  height: 7
   boardLayout: []
   dots:
   - {fileID: 1661336452260852195, guid: 5f3433f11f7521d428e9363570b25284, type: 3}
@@ -27,6 +27,7 @@ MonoBehaviour:
     counterValue: 30
   levelGoals:
   - numberNeeded: 15
-    numberCollected: 24
+    numberCollected: 0
     goalSprite: {fileID: 21300000, guid: b74682ef427f75d439a9ecc7864f09fe, type: 3}
     matchValue: Blue
+  pading: 3.5

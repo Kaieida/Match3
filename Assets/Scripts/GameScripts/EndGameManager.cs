@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public enum GameType
 {
@@ -18,6 +19,8 @@ public class EndGameReq
 
 public class EndGameManager : MonoBehaviour
 {
+    public UnityEvent gameOverEvent;
+    public GameObject test;
     public EndGameReq requirements;
     public GameObject movesLabel;
     public GameObject timesLabel;
@@ -29,9 +32,12 @@ public class EndGameManager : MonoBehaviour
     private float _timerSeconds;
     [SerializeField] private ScoreManager _scoreManager;
     private Board _board;
+    private bool _adTime;
+
     // Start is called before the first frame update
     void Start()
     {
+        _adTime = false; 
         _board = GameObject.FindWithTag("Board").GetComponent<Board>();
         SetGameType();
         SetupGame();  
@@ -93,6 +99,11 @@ public class EndGameManager : MonoBehaviour
         _scoreManager.WinScoreUpdate();
         fade.GameOver();
         PlayerPrefs.SetInt("levelPanel", 1);
+        if (!_adTime && TimeToAds.Instance.flag)
+        {
+            StartCoroutine(PlayAd());
+        }
+        
     }
     public void LoseGame()
     {
@@ -103,8 +114,20 @@ public class EndGameManager : MonoBehaviour
         FadePanelController fade = FindObjectOfType<FadePanelController>();
         fade.GameOver();
         PlayerPrefs.SetInt("levelPanel", 1);
+        if (!_adTime && TimeToAds.Instance.flag)
+        {
+            StartCoroutine(PlayAd());
+        }
     }
+    public IEnumerator PlayAd()
+    {
+        _adTime = true;
+        yield return new WaitForSeconds(1f);
+        gameOverEvent.Invoke();
+        TimeToAds.Instance.StartTimer();
+        yield return null;
 
+    }
     private void Update()
     {
         if(requirements.gameType == GameType.Time)

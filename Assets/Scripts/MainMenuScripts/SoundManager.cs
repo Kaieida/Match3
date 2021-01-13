@@ -14,10 +14,8 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         bool sound = PlayerPrefs.GetString("Music", "On")=="On"?true:false;
-        Debug.Log("Starting is " + sound);
         if (sound)
         {
-            Debug.Log(soundButton);
             soundButton.image.sprite = musicOn;
             //PlayerPrefs.SetString("Sound", "Off");
         }

@@ -32,13 +32,11 @@ public class PauseManager : MonoBehaviour
     {
         if (pause && !pausePanel.activeInHierarchy)
         {
-            Debug.Log("Kappa1");
             pausePanel.SetActive(true);
             _board.currentState = GameState.pause;
         }
         if (!pause && pausePanel.activeInHierarchy)
         {
-            Debug.Log("Kappa2");
             pausePanel.SetActive(false);
             _board.currentState = GameState.move;
         }

@@ -91,7 +91,7 @@ public class FindMatches : MonoBehaviour
     }
     private IEnumerator FindAllMatches()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(.15f);
        
         for (int i = 0; i < _board.Width; i++)
         {
@@ -193,7 +193,6 @@ public class FindMatches : MonoBehaviour
                 dot.IsMatched = true;
             }
         }
-        Debug.Log(column + " " + _board.Height);
         return dots;
     }
     private List<GameObject> GetRowPieces(int row)
