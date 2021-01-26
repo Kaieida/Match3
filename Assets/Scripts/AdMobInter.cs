@@ -15,11 +15,16 @@ public class AdMobInter : MonoBehaviour
     void Start()
     {
         InterstitialAdGameObject interstitialAd = MobileAds.Instance
-            .GetAd<InterstitialAdGameObject>("Interstitial Ad");
-
-        MobileAds.Initialize((initStatus) => {
+                    .GetAd<InterstitialAdGameObject>("Interstitial Ad");
+        MobileAds.Initialize((initStatus) =>
+        {
             Debug.Log("Initialized MobileAds");
+            interstitialAd.LoadAd();
         });
+        interstitialAd.ShowIfLoaded();
+
+
+
     }
 
     // Update is called once per frame

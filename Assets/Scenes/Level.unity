@@ -2379,7 +2379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adType: 1
   selectedPlacementIndex: 0
-  androidAdUnitId: ca-app-pub-3940256099942544/1033173712
+  androidAdUnitId: ca-app-pub-5365956759575502/8047815138
   iOSAdUnitId: ca-app-pub-3940256099942544/1033173712
   persistent: 0
   autoLoadEnabled: 1
@@ -4585,6 +4585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc13c326a4d9df24fbaef74ee444c012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _testText: {fileID: 0}
 --- !u!1 &1821561894 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4230825934442633460, guid: a030c17ebcc80294fa20bdb7f2456928,
