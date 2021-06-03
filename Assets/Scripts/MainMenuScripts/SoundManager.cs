@@ -30,23 +30,18 @@ public class SoundManager : MonoBehaviour
     {
         if (value)
         {
-            //soundButton.image.sprite = musicOff;
             foreach (AudioSource sound in _sounds)
             {
                 sound.mute = true;
             }
-            //PlayerPrefs.SetString("Sound", "Off");
         }
         else
         {
-            //soundButton.image.sprite = musicOn;
             foreach (AudioSource sound in _sounds)
             {
                 sound.mute = false;
             }
-            //PlayerPrefs.SetString("Sound", "On");
         }
-        //Debug.Log(PlayerPrefs.GetString("Sound"));
     }
     public void SoundButtonClick()
     {

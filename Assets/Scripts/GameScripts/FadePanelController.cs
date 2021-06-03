@@ -12,10 +12,10 @@ public class FadePanelController : MonoBehaviour
     {
         if (panelAnim != null && gameInfoAnim != null)
         {
-
             panelAnim.SetBool("Out", true);
             gameInfoAnim.SetBool("Out", true);
             StartCoroutine(GameStart());
+            Debug.Log("Kappa123");
         }
     }
     public void GameOver()

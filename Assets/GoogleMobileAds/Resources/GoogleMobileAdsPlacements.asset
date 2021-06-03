@@ -21,8 +21,8 @@ MonoBehaviour:
     autoLoadEnabled: 0
   - placementName: AdMob Demo Interstitial Ad
     adType: 1
-    androidAdUnitId: ca-app-pub-5365956759575502/8047815138
-    iOSAdUnitId: ca-app-pub-3940256099942544/1033173712
+    androidAdUnitId: ca-app-pub-8546552218823239/3404171502
+    iOSAdUnitId: ca-app-pub-8546552218823239/3404171502
     persistent: 0
     autoLoadEnabled: 1
   - placementName: AdMob Demo Rewarded Ad
